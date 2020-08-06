@@ -8,6 +8,7 @@ class Universities {
     // جامعة الملك سعود
     // عدد الكليات: 13
     University(
+      "KSU",
       "جامعة الملك سعود",
       Image.asset("images/Ksu.png"),
       [
@@ -31,7 +32,7 @@ class Universities {
             Image.asset("images/Colleges logos/كلية اللغات.png")),
         Colleges("كلية الآداب",
             Image.asset("images/Colleges logos/كلية الاداب.png")),
-        Colleges("كلية علوم الرياضة والنشاط البدني",
+        Colleges("كلية الرياضة والنشاط البدني",
             Image.asset("images/Colleges logos/كلية البدنية.png")),
         Colleges("كلية التربية",
             Image.asset("images/Colleges logos/كلية التربية.png")),
@@ -42,6 +43,7 @@ class Universities {
     // جامعة الاميره نوره
     // عدد الكليات: 10
     University(
+      "PNU",
       "جامعة الأميرة نورة",
       Image.asset("images/PNU.png"),
       [
@@ -70,6 +72,7 @@ class Universities {
     // جامعة الإمام
     // عدد الكليات: 11
     University(
+      "IMU",
       "جامعة الإمام محمد بن سعود",
       Image.asset("images/IMU.png"),
       [
@@ -92,7 +95,7 @@ class Universities {
         Colleges("كلية الشريعة",
             Image.asset("images/Colleges logos/كلية الحقوق.png")),
         Colleges("كلية أصول الدين",
-            Image.asset("images/Colleges logos/كلية الحقوق.png")),
+            Image.asset("images/Colleges logos/كلية التربية.png")),
         Colleges("كلية العلوم الاجتماعية",
             Image.asset("images/Colleges logos/كلية الخدمة الاجتماعية.png")),
       ],
@@ -100,6 +103,7 @@ class Universities {
     // جامعة الحرس
     // عدد الكليات: 1
     University(
+      "KSAU",
       "جامعة الملك سعود للعلوم الصحية",
       Image.asset("images/Ksau.png"),
       [
