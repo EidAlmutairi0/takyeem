@@ -19,9 +19,9 @@ void getColleges(int uniNum) {
       Container(
           width: 100,
           height: 100,
-          margin: EdgeInsets.all(1),
+          margin: EdgeInsets.all(2),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(5),
             image: DecorationImage(
               image: AssetImage('images/CardsBackground.png'),
               fit: BoxFit.cover,
