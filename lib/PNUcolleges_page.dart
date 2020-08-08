@@ -16,12 +16,17 @@ class _PNUCollegesPageState extends State<PNUCollegesPage> {
     getColleges(1);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
+          brightness: Brightness.light,
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Color(0xFFb3e5fc),
           title: Text(
-            "جامعة الأميرة نورة",
+            "جامعة الملك سعود",
             style: GoogleFonts.almarai(
               textStyle: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),

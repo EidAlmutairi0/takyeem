@@ -15,12 +15,17 @@ class _KSUCollegesPageState extends State<KSUCollegesPage> {
     getColleges(0);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
+          brightness: Brightness.light,
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Color(0xFFb3e5fc),
           title: Text(
             "جامعة الملك سعود",
             style: GoogleFonts.almarai(
               textStyle: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),

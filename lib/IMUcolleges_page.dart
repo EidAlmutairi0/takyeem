@@ -15,13 +15,20 @@ class _IMUCollegesPageState extends State<IMUCollegesPage> {
     getColleges(2);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          title: Text("جامعة الإمام محمد بن سعود",
-              style: GoogleFonts.almarai(
-                textStyle: TextStyle(
-                  color: Colors.white,
-                ),
-              )),
+          brightness: Brightness.light,
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Color(0xFFb3e5fc),
+          title: Text(
+            "جامعة الملك سعود",
+            style: GoogleFonts.almarai(
+              textStyle: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
         ),
         body: Container(
           decoration: BoxDecoration(
