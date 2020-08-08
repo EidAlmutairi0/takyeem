@@ -22,10 +22,11 @@ class _KSAUCollegesPageState extends State<KSAUCollegesPage> {
           ),
           backgroundColor: Color(0xFFb3e5fc),
           title: Text(
-            "جامعة الملك سعود",
+            "جامعة الملك سعود للعلوم الصحية",
             style: GoogleFonts.almarai(
               textStyle: TextStyle(
                 color: Colors.black,
+                fontSize: 18,
               ),
             ),
           ),

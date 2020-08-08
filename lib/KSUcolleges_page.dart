@@ -26,6 +26,7 @@ class _KSUCollegesPageState extends State<KSUCollegesPage> {
             style: GoogleFonts.almarai(
               textStyle: TextStyle(
                 color: Colors.black,
+                fontSize: 18,
               ),
             ),
           ),

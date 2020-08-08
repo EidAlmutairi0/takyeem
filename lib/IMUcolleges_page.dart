@@ -22,10 +22,11 @@ class _IMUCollegesPageState extends State<IMUCollegesPage> {
           ),
           backgroundColor: Color(0xFFb3e5fc),
           title: Text(
-            "جامعة الملك سعود",
+            "جامعة الإمام محمد بن سعود",
             style: GoogleFonts.almarai(
               textStyle: TextStyle(
                 color: Colors.black,
+                fontSize: 18,
               ),
             ),
           ),

@@ -23,10 +23,11 @@ class _PNUCollegesPageState extends State<PNUCollegesPage> {
           ),
           backgroundColor: Color(0xFFb3e5fc),
           title: Text(
-            "جامعة الملك سعود",
+            "جامعة الأميرة نورة",
             style: GoogleFonts.almarai(
               textStyle: TextStyle(
                 color: Colors.black,
+                fontSize: 18,
               ),
             ),
           ),
