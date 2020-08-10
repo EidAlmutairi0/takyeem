@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,8 +81,23 @@ class _KSUCollegesPageState extends State<KSUCollegesPage> {
                   SizedBox(
                     height: 5,
                   ),
-                  Column(
-                    children: listOfColumns,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                    child: LiveGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 1,
+                        mainAxisSpacing: 1,
+                      ),
+                      itemBuilder: buildAnimatedItem,
+                      itemCount: colleges.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      showItemDuration: Duration(milliseconds: 350),
+                      showItemInterval: Duration(milliseconds: 350),
+                      delay: Duration(seconds: 0),
+                      controller: ScrollController(),
+                    ),
                   ),
                   SizedBox(
                     height: 20,

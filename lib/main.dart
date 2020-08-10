@@ -9,6 +9,7 @@ import 'KSUcolleges_page.dart';
 import 'IMUcolleges_page.dart';
 import 'PNUcolleges_page.dart';
 import 'KSAUcolleges_page.dart';
+import 'package:auto_animated/auto_animated.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,28 @@ void main() {
 
 Universities uni = Universities();
 List<Container> Unis = [];
+
+Widget buildAnimatedItem(
+  BuildContext context,
+  int index,
+  Animation<double> animation,
+) =>
+    // For example wrap with fade transition
+    FadeTransition(
+      opacity: Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(animation),
+      // And slide transition
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: Offset(0, -0.1),
+          end: Offset.zero,
+        ).animate(animation),
+        // Paste you Widget
+        child: Unis[index],
+      ),
+    );
 
 class MyApp extends StatefulWidget {
   @override
@@ -53,12 +76,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    createUniversities();
-
-    super.initState();
-  }
-
   void createUniversities() {
     for (int i = Unis.length; i < uni.universities.length; i++) {
       Unis.add(
@@ -101,6 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
       );
     }
+  }
+
+  @override
+  void initState() {
+    createUniversities();
+    super.initState();
   }
 
   @override
@@ -159,8 +182,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 8,
                   ),
-                  Column(
-                    children: Unis,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+                    child: LiveList(
+                      itemBuilder: buildAnimatedItem,
+                      itemCount: Unis.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      showItemDuration: Duration(milliseconds: 500),
+                      showItemInterval: Duration(milliseconds: 350),
+                      delay: Duration(seconds: 0),
+                    ),
                   ),
                   SizedBox(
                     height: 20,

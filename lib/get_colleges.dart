@@ -8,10 +8,31 @@ Universities uni;
 List<Container> colleges;
 List<Row> listOfColumns;
 
-void getColleges(int uniNum) {
+Widget buildAnimatedItem(
+  BuildContext context,
+  int index,
+  Animation<double> animation,
+) =>
+    // For example wrap with fade transition
+    FadeTransition(
+      opacity: Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(animation),
+      // And slide transition
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: Offset(0, -0.1),
+          end: Offset.zero,
+        ).animate(animation),
+        // Paste you Widget
+        child: colleges[index],
+      ),
+    );
+
+List<Container> getColleges(int uniNum) {
   uni = Universities();
   colleges = [];
-  listOfColumns = [];
   for (int i = colleges.length;
       i < uni.universities[uniNum].universityColleges.length;
       i++) {
@@ -50,36 +71,5 @@ void getColleges(int uniNum) {
           )),
     );
   }
-  colleges = colleges.reversed.toList();
-  double s = uni.universities[uniNum].universityColleges.length / 3;
-  if (listOfColumns.length != s.ceil()) {
-    for (int i = 0; i < s.ceil(); i++) {
-      if (colleges.length >= 3) {
-        listOfColumns.add(Row(
-          children: [
-            colleges[colleges.length - 1],
-            colleges[colleges.length - 2],
-            colleges[colleges.length - 3]
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
-        ));
-        colleges.length = colleges.length - 3;
-      } else if (colleges.length == 2) {
-        listOfColumns.add(Row(
-          children: [
-            colleges[colleges.length - 1],
-            colleges[colleges.length - 2]
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
-        ));
-        colleges.length = colleges.length - 2;
-      } else {
-        listOfColumns.add(Row(
-          children: [colleges[colleges.length - 1]],
-          mainAxisAlignment: MainAxisAlignment.center,
-        ));
-        colleges.length--;
-      }
-    }
-  }
+  return colleges;
 }
