@@ -48,10 +48,13 @@ class _KSAUCollegesPageState extends State<KSAUCollegesPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        height: 140,
-                        child: Image(
-                          image: AssetImage('images/Takyeem logo.png'),
+                      Hero(
+                        tag: "takyeemLogo",
+                        child: Container(
+                          height: 100,
+                          child: Image(
+                            image: AssetImage('images/Takyeem logo.png'),
+                          ),
                         ),
                       ),
                       Padding(

@@ -52,6 +52,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    createUniversities();
+
+    super.initState();
+  }
+
   void createUniversities() {
     for (int i = Unis.length; i < uni.universities.length; i++) {
       Unis.add(
@@ -99,8 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    createUniversities();
-
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -119,10 +124,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 140,
-                    child: Image(
-                      image: AssetImage('images/Takyeem logo.png'),
+                  Hero(
+                    tag: "takyeemLogo",
+                    child: Container(
+                      height: 140,
+                      child: Image(
+                        image: AssetImage('images/Takyeem logo.png'),
+                      ),
                     ),
                   ),
                   Padding(
