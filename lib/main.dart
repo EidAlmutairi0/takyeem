@@ -10,6 +10,8 @@ import 'IMUcolleges_page.dart';
 import 'PNUcolleges_page.dart';
 import 'KSAUcolleges_page.dart';
 import 'package:auto_animated/auto_animated.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +19,11 @@ void main() {
 
 Universities uni = Universities();
 List<Container> Unis = [];
+Icon heart = Icon(
+  EvaIcons.heart,
+  color: Colors.white,
+);
+String welcomeText = "Made with $heart from a KSU student";
 
 Widget buildAnimatedItem(
   BuildContext context,
@@ -64,7 +71,7 @@ class _MyAppState extends State<MyApp> {
         "PNU": (context) => PNUCollegesPage(),
         "KSAU": (context) => KSAUCollegesPage(),
       },
-      home: HomeScreen(),
+      home: new HomeScreen(),
     );
   }
 }
