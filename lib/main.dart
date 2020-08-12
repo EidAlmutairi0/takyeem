@@ -10,8 +10,6 @@ import 'IMUcolleges_page.dart';
 import 'PNUcolleges_page.dart';
 import 'KSAUcolleges_page.dart';
 import 'package:auto_animated/auto_animated.dart';
-import 'package:splashscreen/splashscreen.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,11 +17,6 @@ void main() {
 
 Universities uni = Universities();
 List<Container> Unis = [];
-Icon heart = Icon(
-  EvaIcons.heart,
-  color: Colors.white,
-);
-String welcomeText = "Made with $heart from a KSU student";
 
 Widget buildAnimatedItem(
   BuildContext context,
@@ -145,8 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: SafeArea(
-        child: Container(
-          child: Center(
+        child: Center(
+          child: Container(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -199,6 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       showItemDuration: Duration(milliseconds: 500),
                       showItemInterval: Duration(milliseconds: 350),
                       delay: Duration(seconds: 0),
+                      controller: ScrollController(),
                     ),
                   ),
                   SizedBox(
