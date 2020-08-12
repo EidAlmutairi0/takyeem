@@ -13,8 +13,13 @@ class PNUCollegesPage extends StatefulWidget {
 
 class _PNUCollegesPageState extends State<PNUCollegesPage> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     getColleges(1);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,

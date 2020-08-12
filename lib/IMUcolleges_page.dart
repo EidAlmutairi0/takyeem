@@ -12,8 +12,13 @@ class IMUCollegesPage extends StatefulWidget {
 
 class _IMUCollegesPageState extends State<IMUCollegesPage> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     getColleges(2);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,

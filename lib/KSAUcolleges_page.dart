@@ -12,8 +12,13 @@ class KSAUCollegesPage extends StatefulWidget {
 
 class _KSAUCollegesPageState extends State<KSAUCollegesPage> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     getColleges(3);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,
