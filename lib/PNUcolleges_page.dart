@@ -46,7 +46,7 @@ class _PNUCollegesPageState extends State<PNUCollegesPage> {
             ),
           ),
           child: SafeArea(
-            child: Container(
+            child: Center(
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[

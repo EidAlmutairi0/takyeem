@@ -46,7 +46,7 @@ class _KSAUCollegesPageState extends State<KSAUCollegesPage> {
           ),
           child: SafeArea(
             child: Center(
-              child: Container(
+              child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
