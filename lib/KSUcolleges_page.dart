@@ -4,6 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'get_colleges.dart';
+import 'add_rate_screen.dart';
+import 'widgets.dart';
+
+Widget buildAddRateButtomSheet(BuildContext context) => AddRateScreen();
 
 class KSUCollegesPage extends StatefulWidget {
   @override
@@ -20,6 +24,8 @@ class _KSUCollegesPageState extends State<KSUCollegesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: AddRateFlotingActionButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
           brightness: Brightness.light,
           centerTitle: true,

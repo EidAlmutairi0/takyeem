@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_animated/auto_animated.dart';
-
+import 'package:takyeem/add_doctor_screen.dart';
 import 'get_colleges.dart';
+import 'widgets.dart';
+
+Widget buildButtomSheet(BuildContext context) => AddDoctorScreen();
 
 class PNUCollegesPage extends StatefulWidget {
   @override
@@ -103,7 +106,7 @@ class _PNUCollegesPageState extends State<PNUCollegesPage> {
                         controller: ScrollController(),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 20,
                     ),
                   ],

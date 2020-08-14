@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Universities.dart';
 
-Universities uni;
 List<Container> colleges;
 List<Row> listOfColumns;
 
@@ -31,10 +30,9 @@ Widget buildAnimatedItem(
     );
 
 List<Container> getColleges(int uniNum) {
-  uni = Universities();
   colleges = [];
   for (int i = colleges.length;
-      i < uni.universities[uniNum].universityColleges.length;
+      i < Universities.universities[uniNum].universityColleges.length;
       i++) {
     colleges.add(
       Container(
@@ -54,9 +52,11 @@ List<Container> getColleges(int uniNum) {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                uni.universities[uniNum].universityColleges[i].collegeLogo,
+                Universities
+                    .universities[uniNum].universityColleges[i].collegeLogo,
                 Text(
-                  uni.universities[uniNum].universityColleges[i].collegeName,
+                  Universities
+                      .universities[uniNum].universityColleges[i].collegeName,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.almarai(
                       textStyle: TextStyle(

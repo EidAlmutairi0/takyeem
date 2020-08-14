@@ -4,10 +4,11 @@ import 'package:takyeem/colleges.dart';
 import 'University.dart';
 
 class Universities {
-  List<University> universities = [
+  static List<University> universities = [
     // جامعة الملك سعود
     // عدد الكليات: 13
     University(
+      0,
       "KSU",
       "جامعة الملك سعود",
       Image.asset("images/Ksu.png"),
@@ -43,6 +44,7 @@ class Universities {
     // جامعة الاميره نوره
     // عدد الكليات: 10
     University(
+      1,
       "PNU",
       "جامعة الأميرة نورة",
       Image.asset("images/PNU.png"),
@@ -72,6 +74,7 @@ class Universities {
     // جامعة الإمام
     // عدد الكليات: 11
     University(
+      2,
       "IMU",
       "جامعة الإمام محمد بن سعود",
       Image.asset("images/IMU.png"),
@@ -103,6 +106,7 @@ class Universities {
     // جامعة الحرس
     // عدد الكليات: 1
     University(
+      3,
       "KSAU",
       "جامعة الملك سعود للعلوم الصحية",
       Image.asset("images/Ksau.png"),
@@ -114,4 +118,22 @@ class Universities {
     // جامعة الحرس
     // عدد الكليات: 1
   ];
+
+  static List<University> getUnis() {
+    // ignore: non_constant_identifier_names
+    List<University> Unis = [];
+    for (int i = 0; i < universities.length; i++) {
+      Unis.add(universities[i]);
+    }
+    return Unis;
+  }
+
+  static List<String> getColleges(int index) {
+    // ignore: non_constant_identifier_names
+    List<String> Unis = [];
+    for (int i = 0; i < universities[index].universityColleges.length; i++) {
+      Unis.add(universities[index].universityColleges[i].collegeName);
+    }
+    return Unis;
+  }
 }
