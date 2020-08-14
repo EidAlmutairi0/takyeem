@@ -30,7 +30,6 @@ class _AddRateScreenState extends State<AddRateScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      bottom: false,
       child: Container(
         color: Color(0xFF0D3F4F5),
         child: Container(
