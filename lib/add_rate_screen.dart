@@ -86,7 +86,7 @@ class _AddRateScreenState extends State<AddRateScreen> {
                       Expanded(
                         child: Container(
                             width: 220,
-                            child: Slider(
+                            child: Slider.adaptive(
                               value: slider1,
                               min: 0,
                               max: 10,
@@ -123,7 +123,7 @@ class _AddRateScreenState extends State<AddRateScreen> {
                       Expanded(
                         child: Container(
                             width: 220,
-                            child: Slider(
+                            child: Slider.adaptive(
                               value: slider2,
                               min: 0,
                               max: 10,
@@ -160,7 +160,7 @@ class _AddRateScreenState extends State<AddRateScreen> {
                       Expanded(
                         child: Container(
                             width: 220,
-                            child: Slider(
+                            child: Slider.adaptive(
                               value: slider3,
                               min: 0,
                               max: 10,
@@ -197,7 +197,7 @@ class _AddRateScreenState extends State<AddRateScreen> {
                       Expanded(
                         child: Container(
                             width: 220,
-                            child: Slider(
+                            child: Slider.adaptive(
                               value: slider4,
                               min: 0,
                               max: 10,
