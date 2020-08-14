@@ -99,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: SafeArea(
+        bottom: false,
         child: Scaffold(
           floatingActionButton: AddDoctorFlotingActionButton(),
           floatingActionButtonLocation:
