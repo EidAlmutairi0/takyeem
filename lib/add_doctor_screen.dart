@@ -30,16 +30,17 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
+      bottom: false,
+      child: Container(
+        color: Color(0xFF0D3F4F5),
         child: Container(
-          color: Color(0xFF0D3F4F5),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-            ),
-            height: 650,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          ),
+          height: 650,
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(40, 20, 40, 30),
               child: Column(
