@@ -61,7 +61,7 @@ class _KSUCollegesPageState extends State<KSUCollegesPage> {
                     Hero(
                       tag: "takyeemLogo",
                       child: Container(
-                        height: 100,
+                        height: 0,
                         child: Image(
                           image: AssetImage('images/Takyeem logo.png'),
                         ),

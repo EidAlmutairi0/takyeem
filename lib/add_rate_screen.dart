@@ -197,16 +197,23 @@ class _AddRateScreenState extends State<AddRateScreen> {
                       Expanded(
                         child: Container(
                             width: 220,
-                            child: Slider.adaptive(
-                              value: slider4,
-                              min: 0,
-                              max: 10,
-                              divisions: 10,
-                              onChanged: (double value) {
-                                setState(() {
-                                  slider4 = value;
-                                });
-                              },
+                            child: SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                  rangeThumbShape: RoundRangeSliderThumbShape(
+                                enabledThumbRadius: 50,
+                                disabledThumbRadius: 50,
+                              )),
+                              child: Slider.adaptive(
+                                value: slider4,
+                                min: 0,
+                                max: 10,
+                                divisions: 10,
+                                onChanged: (double value) {
+                                  setState(() {
+                                    slider4 = value;
+                                  });
+                                },
+                              ),
                             )),
                       ),
                       Text(
