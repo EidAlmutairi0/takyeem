@@ -38,10 +38,10 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
         height: 625,
-        child: Expanded(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 20, 30, 5),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 5),
+            child: Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
