@@ -284,63 +284,70 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.green,
-                      ),
-                      height: 60,
-                      width: 150,
-                      child: FlatButton(
-                        onPressed: () {
-                          setState(() {
-                            if (doctorName == null || doctorName == "") {
-                              setState(() {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text("الرجاء كتابةاسم الدكتور"),
-                                        content: Text("حقل اسم الدكتور حقل"),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text("OK"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    });
-                              });
-                            } else {}
-                          });
-                        },
-                        child: Text(
-                          "اضافة تقييم",
-                          style: textStyle.copyWith(
-                            fontSize: 18,
-                            color: Colors.white,
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green,
+                        ),
+                        height: 60,
+                        width: 150,
+                        child: FlatButton(
+                          onPressed: () {
+                            setState(() {
+                              if (doctorName == null || doctorName == "") {
+                                setState(() {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title:
+                                              Text("الرجاء كتابةاسم الدكتور"),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text("OK"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                });
+                              } else {}
+                            });
+                          },
+                          child: Text(
+                            "اضافة تقييم",
+                            style: textStyle.copyWith(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.red,
-                      ),
-                      height: 60,
-                      width: 150,
-                      child: FlatButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "الغاء",
-                          style: textStyle.copyWith(
-                            fontSize: 18,
-                            color: Colors.white,
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.red,
+                        ),
+                        height: 60,
+                        width: 150,
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "الغاء",
+                            style: textStyle.copyWith(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
