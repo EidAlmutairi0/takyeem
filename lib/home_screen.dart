@@ -91,16 +91,25 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
-        floatingActionButton: AddDoctorFlotingActionButton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/appBackground.png'),
-              fit: BoxFit.cover,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('images/appBackground.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: SafeArea(
+        child: Scaffold(
+          floatingActionButton: AddDoctorFlotingActionButton(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/appBackground.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          child: SafeArea(
             child: Center(
               child: Container(
                 child: SingleChildScrollView(
@@ -167,6 +176,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }
