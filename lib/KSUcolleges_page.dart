@@ -24,7 +24,16 @@ class _KSUCollegesPageState extends State<KSUCollegesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: AddRateFlotingActionButton(),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Color(0xFF06567A),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddRateScreen()));
+          },
+          child: Icon(
+            Icons.add,
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
           brightness: Brightness.light,

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:takyeem/add_doctor_screen.dart';
 import 'Universities.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'widgets.dart';
+import 'add_doctor_screen.dart';
 
 // ignore: non_constant_identifier_names
 List<Container> Unis = [];
+String currentUniversity;
+String currentColleges;
 
 Widget buildAnimatedItem(
   BuildContext context,
@@ -32,6 +34,8 @@ Widget buildAnimatedItem(
     );
 
 class HomeScreen extends StatefulWidget {
+  static String currentUniversity;
+  static String currentColleges;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -52,6 +56,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: FlatButton(
               onPressed: () {
+                setState(() {
+                  currentUniversity =
+                      Universities.universities[i].universityName;
+                });
+                print(currentUniversity);
                 Navigator.pushNamed(
                     context, Universities.universities[i].universityShortcut);
               },
@@ -91,94 +100,100 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
-        body: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('images/appBackground.png'),
-          fit: BoxFit.cover,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Color(0xFF06567A),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddDoctorScreen()));
+          },
+          child: Icon(
+            Icons.add,
+          ),
         ),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Scaffold(
-          floatingActionButton: AddDoctorFlotingActionButton(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          body: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/appBackground.png'),
-                fit: BoxFit.cover,
-              ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/appBackground.png'),
+              fit: BoxFit.cover,
             ),
-            child: Center(
-              child: Container(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Hero(
-                        tag: "takyeemLogo",
-                        child: Container(
-                          height: 140,
-                          child: Image(
-                            image: AssetImage('images/Takyeem logo.png'),
-                          ),
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/appBackground.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: Card(
-                          color: Colors.white,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 5.0, horizontal: 25.0),
-                          child: TextFormField(
-                            style: TextStyle(fontSize: 20),
-                            cursorRadius: Radius.circular(10),
-                            maxLines: 1,
-                            cursorWidth: 2,
-                            decoration: InputDecoration(
-                              labelText: "اسم الدكتور",
-                              labelStyle: TextStyle(),
-                              icon: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
-                                child: Icon(Icons.search),
-                              ),
-                              border: InputBorder.none,
+                        Hero(
+                          tag: "takyeemLogo",
+                          child: Container(
+                            height: 140,
+                            child: Image(
+                              image: AssetImage('images/Takyeem logo.png'),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
-                        child: LiveList(
-                          itemBuilder: buildAnimatedItem,
-                          itemCount: Unis.length,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          showItemDuration: Duration(milliseconds: 500),
-                          showItemInterval: Duration(milliseconds: 350),
-                          delay: Duration(seconds: 0),
-                          controller: ScrollController(),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Card(
+                            color: Colors.white,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 5.0, horizontal: 25.0),
+                            child: TextFormField(
+                              style: TextStyle(fontSize: 20),
+                              cursorRadius: Radius.circular(10),
+                              maxLines: 1,
+                              cursorWidth: 2,
+                              decoration: InputDecoration(
+                                labelText: "اسم الدكتور",
+                                labelStyle: TextStyle(),
+                                icon: Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                                  child: Icon(Icons.search),
+                                ),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+                          child: LiveList(
+                            itemBuilder: buildAnimatedItem,
+                            itemCount: Unis.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            showItemDuration: Duration(milliseconds: 500),
+                            showItemInterval: Duration(milliseconds: 350),
+                            delay: Duration(seconds: 0),
+                            controller: ScrollController(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }

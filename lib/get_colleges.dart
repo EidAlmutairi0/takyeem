@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Universities.dart';
+import 'home_screen.dart';
 
 List<Container> colleges;
 List<Row> listOfColumns;
@@ -47,7 +48,13 @@ List<Container> getColleges(int uniNum) {
             ),
           ),
           child: FlatButton(
-            onPressed: () {},
+            onPressed: () {
+              currentColleges = Universities
+                  .universities[uniNum].universityColleges[i].collegeName;
+              print(
+                currentUniversity + " - " + currentColleges,
+              );
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
