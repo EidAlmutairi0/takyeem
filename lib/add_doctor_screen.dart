@@ -35,12 +35,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          ),
+        child: Center(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(40, 20, 40, 30),

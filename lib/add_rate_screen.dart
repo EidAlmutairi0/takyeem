@@ -20,6 +20,12 @@ class AddRateScreen extends StatefulWidget {
 class _AddRateScreenState extends State<AddRateScreen> {
   @override
   void initState() {
+    courseShortcut = null;
+    comment = null;
+    slider1 = 0;
+    slider2 = 0;
+    slider3 = 0;
+    slider4 = 0;
     super.initState();
   }
 
