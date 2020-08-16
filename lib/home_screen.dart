@@ -3,7 +3,6 @@ import 'Universities.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_animated/auto_animated.dart';
-import 'widgets.dart';
 import 'add_doctor_screen.dart';
 
 // ignore: non_constant_identifier_names
@@ -110,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Icons.add,
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(

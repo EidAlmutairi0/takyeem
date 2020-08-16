@@ -34,7 +34,7 @@ class _KSUCollegesPageState extends State<KSUCollegesPage> {
             Icons.add,
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         appBar: AppBar(
           brightness: Brightness.light,
           centerTitle: true,
