@@ -17,7 +17,7 @@ class IMUCollegesPage extends StatefulWidget {
 class _IMUCollegesPageState extends State<IMUCollegesPage> {
   @override
   void initState() {
-    getColleges(2);
+    getColleges(2, context);
     super.initState();
   }
 

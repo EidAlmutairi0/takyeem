@@ -30,7 +30,7 @@ Widget buildAnimatedItem(
       ),
     );
 
-List<Container> getColleges(int uniNum) {
+List<Container> getColleges(int uniNum, BuildContext context) {
   colleges = [];
   for (int i = colleges.length;
       i < Universities.universities[uniNum].universityColleges.length;
@@ -49,11 +49,14 @@ List<Container> getColleges(int uniNum) {
           ),
           child: FlatButton(
             onPressed: () {
-              currentColleges = Universities
-                  .universities[uniNum].universityColleges[i].collegeName;
+              currentCollege =
+                  Universities.universities[uniNum].universityColleges[i];
               print(
-                currentUniversity + " - " + currentColleges,
+                currentUniversity.universityName +
+                    " - " +
+                    currentCollege.collegeName,
               );
+              Navigator.pushNamed(context, "CD");
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

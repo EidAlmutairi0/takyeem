@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "550673431188",
+    "firebase_url": "https://takyeem-4b480.firebaseio.com",
+    "project_id": "takyeem-4b480",
+    "storage_bucket": "takyeem-4b480.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550673431188:android:e7851bbc5d356d8cc89281",
+        "android_client_info": {
+          "package_name": "com.example.takyeem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550673431188-9a0qcakv9cd92nvsle8iqhms8mkif4id.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3wi7aqVJa0Pn2O8nkbvk9-nlgY0LiyrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550673431188-9a0qcakv9cd92nvsle8iqhms8mkif4id.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

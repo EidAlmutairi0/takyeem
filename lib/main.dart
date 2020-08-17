@@ -7,6 +7,8 @@ import 'IMUcolleges_page.dart';
 import 'PNUcolleges_page.dart';
 import 'KSAUcolleges_page.dart';
 import 'home_screen.dart';
+import 'CollegeDoctors.dart';
+import 'DoctorSite.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,6 +36,8 @@ class _MyAppState extends State<MyApp> {
         "KSU": (context) => KSUCollegesPage(),
         "IMU": (context) => IMUCollegesPage(),
         "PNU": (context) => PNUCollegesPage(),
+        "DS": (context) => DoctorSite(),
+        "CD": (context) => CollegeDoctors(),
         "KSAU": (context) => KSAUCollegesPage(),
       },
 

@@ -17,7 +17,7 @@ class PNUCollegesPage extends StatefulWidget {
 class _PNUCollegesPageState extends State<PNUCollegesPage> {
   @override
   void initState() {
-    getColleges(1);
+    getColleges(1, context);
     super.initState();
   }
 

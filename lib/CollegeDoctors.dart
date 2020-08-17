@@ -1,0 +1,340 @@
+import 'package:flutter/material.dart';
+import 'home_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_animated/auto_animated.dart';
+import 'add_doctor_screen.dart';
+
+List<Container> getDocs(BuildContext context) {
+  List<Container> Docs = [
+    Container(
+        height: 60,
+        margin: EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          image: DecorationImage(
+            image: AssetImage('images/CardsBackground.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FlatButton(
+          onPressed: () {
+            Navigator.pushNamed(context, "DS");
+          },
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
+                    child: Image(
+                      image: AssetImage("images/teacher.png"),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "احمد الصديق",
+                    textDirection: TextDirection.rtl,
+                    style: GoogleFonts.almarai(
+                        textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )),
+    Container(
+        height: 60,
+        margin: EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          image: DecorationImage(
+            image: AssetImage('images/CardsBackground.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FlatButton(
+          onPressed: () {},
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
+                    child: Image(
+                      image: AssetImage("images/teacher.png"),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "احمد الصديق",
+                    textDirection: TextDirection.rtl,
+                    style: GoogleFonts.almarai(
+                        textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )),
+    Container(
+        height: 60,
+        margin: EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          image: DecorationImage(
+            image: AssetImage('images/CardsBackground.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FlatButton(
+          onPressed: () {},
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
+                    child: Image(
+                      image: AssetImage("images/teacher.png"),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "احمد الصديق",
+                    textDirection: TextDirection.rtl,
+                    style: GoogleFonts.almarai(
+                        textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )),
+    Container(
+        height: 60,
+        margin: EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          image: DecorationImage(
+            image: AssetImage('images/CardsBackground.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FlatButton(
+          onPressed: () {},
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
+                    child: Image(
+                      image: AssetImage("images/teacher.png"),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "احمد الصديق",
+                    textDirection: TextDirection.rtl,
+                    style: GoogleFonts.almarai(
+                        textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )),
+    Container(
+        height: 60,
+        margin: EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          image: DecorationImage(
+            image: AssetImage('images/CardsBackground.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FlatButton(
+          onPressed: () {},
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
+                    child: Image(
+                      image: AssetImage("images/teacher.png"),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "احمد الصديق",
+                    textDirection: TextDirection.rtl,
+                    style: GoogleFonts.almarai(
+                        textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )),
+    Container(
+        height: 60,
+        margin: EdgeInsets.only(bottom: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          image: DecorationImage(
+            image: AssetImage('images/CardsBackground.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FlatButton(
+          onPressed: () {},
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
+                    child: Image(
+                      image: AssetImage("images/teacher.png"),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "احمد الصديق",
+                    textDirection: TextDirection.rtl,
+                    style: GoogleFonts.almarai(
+                        textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )),
+  ];
+  return Docs;
+}
+
+Widget buildAnimatedItem(
+  BuildContext context,
+  int index,
+  Animation<double> animation,
+) =>
+    // For example wrap with fade transition
+    FadeTransition(
+      opacity: Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(animation),
+      // And slide transition
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: Offset(0, -0.1),
+          end: Offset.zero,
+        ).animate(animation),
+        // Paste you Widget
+        child: getDocs(context)[index],
+      ),
+    );
+
+class CollegeDoctors extends StatefulWidget {
+  @override
+  _CollegeDoctorsState createState() => _CollegeDoctorsState();
+}
+
+class _CollegeDoctorsState extends State<CollegeDoctors> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF06567A),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddDoctorScreen()));
+        },
+        child: Icon(
+          Icons.add,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      appBar: AppBar(
+        brightness: Brightness.light,
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        backgroundColor: Color(0xFFb3e5fc),
+        title: Text(
+          currentCollege.collegeName,
+          style: GoogleFonts.almarai(
+            textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      ),
+      body: SizedBox.expand(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/appBackground.png'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Card(
+                      color: Colors.white,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 5.0, horizontal: 25.0),
+                      child: TextFormField(
+                        style: TextStyle(fontSize: 20),
+                        cursorRadius: Radius.circular(10),
+                        maxLines: 1,
+                        cursorWidth: 2,
+                        decoration: InputDecoration(
+                          labelText: "اسم الدكتور",
+                          labelStyle: TextStyle(),
+                          icon: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                            child: Icon(Icons.search),
+                          ),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(80, 15, 80, 0),
+                    child: LiveList(
+                      itemBuilder: buildAnimatedItem,
+                      itemCount: getDocs(context).length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      showItemDuration: Duration(milliseconds: 300),
+                      showItemInterval: Duration(milliseconds: 200),
+                      delay: Duration(seconds: 0),
+                      controller: ScrollController(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

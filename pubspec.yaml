@@ -34,6 +34,8 @@ dependencies:
   google_fonts: ^1.1.0
   auto_animated: ^2.1.0
   status_alert: ^0.1.2
+  firebase_core: ^0.4.5
+  cloud_firestore: ^0.13.7
 
 
 
@@ -66,6 +68,8 @@ flutter:
     - images/appBackground.png
     - images/Colleges logos/
     - images/mainLogo.png
+    - images/teacher.png
+    - images/student.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

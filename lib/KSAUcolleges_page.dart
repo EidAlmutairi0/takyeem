@@ -17,7 +17,7 @@ class KSAUCollegesPage extends StatefulWidget {
 class _KSAUCollegesPageState extends State<KSAUCollegesPage> {
   @override
   void initState() {
-    getColleges(3);
+    getColleges(3, context);
     super.initState();
   }
 
