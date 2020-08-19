@@ -6,9 +6,29 @@ const double scaleHeight = 15;
 const double titleFontSize = 20;
 const double scaleFontSize = 12;
 
+double rate = 0;
+double rate1 = 0;
+double rate2 = 0;
+double rate3 = 0;
+
 class Sliders extends StatefulWidget {
+  static double rangeTotal = (rate + rate1 + rate2 + rate3) / 4;
+
   @override
   _SlidersState createState() => _SlidersState();
+}
+
+Color scaleColor(double num) {
+  if (num >= 8)
+    return Color(0xFF59AE51);
+  else if (num >= 6 && num < 8)
+    return Color(0xFFB1CD4C);
+  else if (num >= 4 && num < 6)
+    return Color(0xFFFBC634);
+  else if (num >= 2 && num < 4)
+    return Color(0xFFF3944F);
+  else
+    return Color(0xFFEB5846);
 }
 
 class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
@@ -24,23 +44,6 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
   Animation _animation3;
 
   Animation _curve;
-  double rate;
-  double rate1;
-  double rate2;
-  double rate3;
-
-  Color scaleColor(double num) {
-    if (num >= 8)
-      return Color(0xFF59AE51);
-    else if (num >= 6 && num < 8)
-      return Color(0xFFB1CD4C);
-    else if (num >= 4 && num < 6)
-      return Color(0xFFFBC634);
-    else if (num >= 2 && num < 4)
-      return Color(0xFFF3944F);
-    else
-      return Color(0xFFEB5846);
-  }
 
   double getRange() {
     double sum = 0;
@@ -122,7 +125,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -130,41 +133,47 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  "الشرح",
-                  style: GoogleFonts.almarai(
-                    textStyle: TextStyle(
-                      fontSize: titleFontSize,
+                Flexible(
+                  flex: 2,
+                  child: Text(
+                    "الشرح",
+                    style: GoogleFonts.almarai(
+                      textStyle: TextStyle(
+                        fontSize: titleFontSize,
+                      ),
                     ),
                   ),
                 ),
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      width: scaleWidth,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    Container(
-                      width: _animation.value,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: scaleColor(getRange()),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "${(rate * 10).toInt()}%",
-                          style: TextStyle(
-                              fontSize: scaleFontSize,
-                              fontWeight: FontWeight.bold),
+                Flexible(
+                  flex: 4,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        width: scaleWidth,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        width: _animation.value,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: scaleColor(getRange()),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${(rate * 10).toInt()}%",
+                            style: TextStyle(
+                                fontSize: scaleFontSize,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -173,41 +182,47 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  "التعامل",
-                  style: GoogleFonts.almarai(
-                    textStyle: TextStyle(
-                      fontSize: titleFontSize,
+                Flexible(
+                  flex: 2,
+                  child: Text(
+                    "التعامل",
+                    style: GoogleFonts.almarai(
+                      textStyle: TextStyle(
+                        fontSize: titleFontSize,
+                      ),
                     ),
                   ),
                 ),
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      width: scaleWidth,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    Container(
-                      width: _animation1.value,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: scaleColor(getRange1()),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "${(rate1 * 10).toInt()}%",
-                          style: TextStyle(
-                              fontSize: scaleFontSize,
-                              fontWeight: FontWeight.bold),
+                Flexible(
+                  flex: 4,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        width: scaleWidth,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        width: _animation1.value,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: scaleColor(getRange1()),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${(rate1 * 10).toInt()}%",
+                            style: TextStyle(
+                                fontSize: scaleFontSize,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -216,41 +231,47 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  "التحضير",
-                  style: GoogleFonts.almarai(
-                    textStyle: TextStyle(
-                      fontSize: titleFontSize,
+                Flexible(
+                  flex: 2,
+                  child: Text(
+                    "التحضير",
+                    style: GoogleFonts.almarai(
+                      textStyle: TextStyle(
+                        fontSize: titleFontSize,
+                      ),
                     ),
                   ),
                 ),
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      width: scaleWidth,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    Container(
-                      width: _animation2.value,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: scaleColor(getRange2()),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "${(rate2 * 10).toInt()}%",
-                          style: TextStyle(
-                              fontSize: scaleFontSize,
-                              fontWeight: FontWeight.bold),
+                Flexible(
+                  flex: 4,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        width: scaleWidth,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        width: _animation2.value,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: scaleColor(getRange2()),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${(rate2 * 10).toInt()}%",
+                            style: TextStyle(
+                                fontSize: scaleFontSize,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -259,41 +280,47 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  "الدرجات",
-                  style: GoogleFonts.almarai(
-                    textStyle: TextStyle(
-                      fontSize: titleFontSize,
+                Flexible(
+                  flex: 2,
+                  child: Text(
+                    "الدرجات",
+                    style: GoogleFonts.almarai(
+                      textStyle: TextStyle(
+                        fontSize: titleFontSize,
+                      ),
                     ),
                   ),
                 ),
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      width: scaleWidth,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    Container(
-                      width: _animation3.value,
-                      height: scaleHeight,
-                      decoration: BoxDecoration(
-                        color: scaleColor(getRange3()),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "${(rate3 * 10).toInt()}%",
-                          style: TextStyle(
-                              fontSize: scaleFontSize,
-                              fontWeight: FontWeight.bold),
+                Flexible(
+                  flex: 4,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        width: scaleWidth,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        width: _animation3.value,
+                        height: scaleHeight,
+                        decoration: BoxDecoration(
+                          color: scaleColor(getRange3()),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${(rate3 * 10).toInt()}%",
+                            style: TextStyle(
+                                fontSize: scaleFontSize,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

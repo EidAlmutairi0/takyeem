@@ -73,7 +73,7 @@ class _AddRateScreenState extends State<AddRateScreen> {
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
                         width: 100,
@@ -82,18 +82,19 @@ class _AddRateScreenState extends State<AddRateScreen> {
                       ),
                       Expanded(
                         child: Container(
-                            width: 220,
-                            child: Slider.adaptive(
-                              value: slider1,
-                              min: 0,
-                              max: 10,
-                              divisions: 10,
-                              onChanged: (double value) {
-                                setState(() {
-                                  slider1 = value;
-                                });
-                              },
-                            )),
+                          width: 220,
+                          child: Slider.adaptive(
+                            value: slider1,
+                            min: 0,
+                            max: 10,
+                            divisions: 10,
+                            onChanged: (double value) {
+                              setState(() {
+                                slider1 = value;
+                              });
+                            },
+                          ),
+                        ),
                       ),
                       Text(
                         "${slider1.toInt()}",
