@@ -1,8 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:takyeem/home_screen.dart';
 import 'Sliders.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'add_rate_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+double slider11 = 0;
+double slider22 = 0;
+double slider33 = 0;
+double slider44 = 0;
+
+final _firestore = FirebaseFirestore.instance;
 
 double totalRates;
 
@@ -54,7 +63,7 @@ class _DoctorSiteState extends State<DoctorSite> {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
                       height: 260,
                       decoration: BoxDecoration(
                         color: Colors.white70,
@@ -72,7 +81,7 @@ class _DoctorSiteState extends State<DoctorSite> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "احمد الصادق",
+                                  currentDoctor,
                                   style: GoogleFonts.almarai(
                                     textStyle: TextStyle(
                                       fontSize: 26,
@@ -117,29 +126,172 @@ class _DoctorSiteState extends State<DoctorSite> {
                         ),
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white70,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      margin:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("ريض 106"),
-                          Text(
-                              "شرحه سي ايبايةباحخياةي يئاحةيئبائينخاةحئاةح ئيبالةيئبائنيمبةائيحبن ةحيئبانةيئبحخاةي جحةيائباةئياخياةئيحابئةياخيئا ةحئيباةيباخةء"),
-                        ],
-                      ),
+                    StreamBuilder<QuerySnapshot>(
+                      stream: _firestore
+                          .collection("${currentUniversity.universityShortcut}")
+                          .doc("${currentUniversity.universityShortcut}")
+                          .collection("colleges")
+                          .doc("${currentCollege.collegeName}")
+                          .collection("Doctors")
+                          .doc("$currentDoctor")
+                          .collection("rates")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final ratings = snapshot.data.docs;
+                          List<RateWidget> ratingsWidgets = [];
+                          for (var aRate in ratings) {
+                            var curesNum = aRate.get("CureseNum");
+                            final comment = aRate.get("comment");
+                            final date = aRate.get("addingDate");
+
+                            curesNum == null
+                                ? curesNum = ""
+                                : curesNum = curesNum;
+                            final ratingWidget = RateWidget(
+                              curseNum: curesNum,
+                              comment: comment,
+                              date: date,
+                            );
+                            ratingsWidgets.add(ratingWidget);
+                          }
+                          return Column(
+                            children: ratingsWidgets,
+                          );
+                        } else {
+                          return Center();
+                        }
+                      },
                     ),
+                    SizedBox(
+                      height: 80,
+                    )
                   ],
                 ),
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class RateWidget extends StatefulWidget {
+  String curseNum;
+  String comment;
+  String date;
+
+  RateWidget({this.curseNum, this.comment, this.date});
+
+  @override
+  _RateWidgetState createState() => _RateWidgetState();
+}
+
+class _RateWidgetState extends State<RateWidget> {
+  void displayDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Text(
+                "هل انت متأكد من انك تريد الابلاغ؟",
+                style: TextStyle(fontSize: 16),
+              ),
+              content:
+                  Text("يكون الإبلاغ على التعليقات التي تحمل إساءة مباشرة"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("تأكيد")),
+                CupertinoDialogAction(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    isDefaultAction: true,
+                    child: Text("تراجع")),
+              ],
+            ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black26),
+        color: Colors.white70,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      margin: EdgeInsets.fromLTRB(40, 10, 40, 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20, top: 10, bottom: 5),
+            child: Row(
+              children: [
+                Text(
+                  "المقرر : ",
+                  style: GoogleFonts.almarai(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  widget.curseNum,
+                  style: GoogleFonts.almarai(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Divider(
+            thickness: 2,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              widget.comment,
+              style: GoogleFonts.almarai(
+                textStyle: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.date,
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ),
+              IconButton(
+                iconSize: 25,
+                alignment: Alignment.bottomLeft,
+                padding: EdgeInsets.all(5),
+                onPressed: displayDialog,
+                icon: Icon(Icons.error_outline),
+                tooltip: "إبلاغ",
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

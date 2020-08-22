@@ -9,6 +9,7 @@ import 'KSAUcolleges_page.dart';
 import 'home_screen.dart';
 import 'CollegeDoctors.dart';
 import 'DoctorSite.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,9 +23,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    Firebase.initializeApp();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
+        GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],

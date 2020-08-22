@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:auto_animated/auto_animated.dart';
 import 'add_doctor_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final _firestore = FirebaseFirestore.instance;
 
 List<Container> getDocs(BuildContext context) {
   List<Container> Docs = [
@@ -318,15 +320,89 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 0),
-                    child: LiveList(
-                      itemBuilder: buildAnimatedItem,
-                      itemCount: getDocs(context).length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      showItemDuration: Duration(milliseconds: 300),
-                      showItemInterval: Duration(milliseconds: 200),
-                      delay: Duration(seconds: 0),
-                      controller: ScrollController(),
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: _firestore
+                          .collection("${currentUniversity.universityShortcut}")
+                          .doc("${currentUniversity.universityShortcut}")
+                          .collection("colleges")
+                          .doc("${currentCollege.collegeName}")
+                          .collection("Doctors")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final doctors = snapshot.data.docs;
+                          List<Container> doctorsWidgets = [];
+                          for (var doctor in doctors) {
+                            var aDoctor = doctor.get("Drname");
+                            final doctorWidget = Container(
+                                height: 60,
+                                margin: EdgeInsets.only(bottom: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        'images/CardsBackground.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    currentDoctor = doctor.get("Drname");
+                                    Navigator.pushNamed(context, "DS");
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(2, 2, 0, 2),
+                                            child: Image(
+                                              image: AssetImage(
+                                                  "images/teacher.png"),
+                                            )),
+                                        SizedBox(width: 10),
+                                        Expanded(
+                                          child: Text(
+                                            aDoctor,
+                                            textDirection: TextDirection.rtl,
+                                            style: GoogleFonts.almarai(
+                                                textStyle: TextStyle(
+                                              fontSize: 18,
+                                            )),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                            doctorsWidgets.add(doctorWidget);
+                          }
+                          if (doctorsWidgets.isEmpty)
+                            return Center(
+                              child: Text(
+                                "لا يوجد دكاتره",
+                                style: GoogleFonts.almarai(
+                                    textStyle: TextStyle(
+                                  fontSize: 28,
+                                )),
+                              ),
+                            );
+
+                          return Column(
+                            children: doctorsWidgets,
+                          );
+                        } else {
+                          return Center(
+                            child: Text(
+                              "لا يوجد دكاتره",
+                              style: GoogleFonts.almarai(
+                                  textStyle: TextStyle(
+                                fontSize: 28,
+                              )),
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ],

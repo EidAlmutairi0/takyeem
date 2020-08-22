@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:status_alert/status_alert.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:takyeem/home_screen.dart';
 
 double slider1 = 0;
 double slider2 = 0;
@@ -9,6 +11,8 @@ double slider3 = 0;
 double slider4 = 0;
 String courseShortcut;
 String comment;
+
+final _firestore = FirebaseFirestore.instance;
 
 TextStyle textStyle = GoogleFonts.almarai(fontSize: 18);
 
@@ -18,6 +22,17 @@ class AddRateScreen extends StatefulWidget {
 }
 
 class _AddRateScreenState extends State<AddRateScreen> {
+  String finalDate;
+  String getCurrentDate() {
+    var date = new DateTime.now().toString();
+
+    var dateParse = DateTime.parse(date);
+
+    var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+
+    return formattedDate.toString();
+  }
+
   @override
   void initState() {
     courseShortcut = null;
@@ -294,6 +309,27 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                         });
                                   });
                                 } else {
+                                  finalDate = getCurrentDate();
+                                  _firestore
+                                      .collection(
+                                          "${currentUniversity.universityShortcut}")
+                                      .doc(
+                                          "${currentUniversity.universityShortcut}")
+                                      .collection("colleges")
+                                      .doc("/${currentCollege.collegeName}")
+                                      .collection("Doctors")
+                                      .doc("${currentDoctor.toString()}")
+                                      .collection("rates")
+                                      .add({
+                                    "CureseNum": courseShortcut,
+                                    "Slider1": slider1,
+                                    "Slider2": slider2,
+                                    "Slider3": slider3,
+                                    "Slider4": slider4,
+                                    "comment": comment,
+                                    "addingDate": finalDate,
+                                  });
+
                                   StatusAlert.show(
                                     context,
                                     duration: Duration(seconds: 1),

@@ -3,7 +3,6 @@ import 'Universities.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_animated/auto_animated.dart';
-import 'add_doctor_screen.dart';
 import 'University.dart';
 import 'colleges.dart';
 
@@ -11,6 +10,7 @@ import 'colleges.dart';
 List<Container> Unis = [];
 University currentUniversity;
 Colleges currentCollege;
+String currentDoctor;
 
 Widget buildAnimatedItem(
   BuildContext context,

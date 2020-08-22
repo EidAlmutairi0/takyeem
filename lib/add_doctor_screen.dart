@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:status_alert/status_alert.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'home_screen.dart';
+
+final _firestore = FirebaseFirestore.instance;
 
 double slider1 = 0;
 double slider2 = 0;
@@ -19,6 +23,17 @@ class AddDoctorScreen extends StatefulWidget {
 }
 
 class _AddDoctorScreenState extends State<AddDoctorScreen> {
+  String finalDate;
+  String getCurrentDate() {
+    var date = new DateTime.now().toString();
+
+    var dateParse = DateTime.parse(date);
+
+    var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+
+    return formattedDate.toString();
+  }
+
   @override
   void initState() {
     doctorName = null;
@@ -348,6 +363,39 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                         });
                                   });
                                 } else {
+                                  finalDate = getCurrentDate();
+                                  _firestore
+                                      .collection(
+                                          "${currentUniversity.universityShortcut}")
+                                      .doc(
+                                          "${currentUniversity.universityShortcut}")
+                                      .collection("colleges")
+                                      .doc("/${currentCollege.collegeName}")
+                                      .collection("Doctors")
+                                      .doc("$doctorName")
+                                      .set({
+                                    "Drname": doctorName,
+                                  }).then((value) => _firestore
+                                              .collection(
+                                                  "${currentUniversity.universityShortcut}")
+                                              .doc(
+                                                  "${currentUniversity.universityShortcut}")
+                                              .collection("colleges")
+                                              .doc(
+                                                  "/${currentCollege.collegeName}")
+                                              .collection("Doctors")
+                                              .doc("$doctorName")
+                                              .collection("rates")
+                                              .add({
+                                            "CureseNum": courseShortcut,
+                                            "Slider1": slider1,
+                                            "Slider2": slider2,
+                                            "Slider3": slider3,
+                                            "Slider4": slider4,
+                                            "comment": comment,
+                                            "addingDate": finalDate,
+                                          }));
+
                                   StatusAlert.show(
                                     context,
                                     duration: Duration(seconds: 1),
