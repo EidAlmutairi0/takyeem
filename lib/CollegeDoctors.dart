@@ -3,6 +3,7 @@ import 'home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'add_doctor_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'DoctorSite.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -347,8 +348,12 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
                                 ),
                                 child: FlatButton(
                                   onPressed: () {
-                                    currentDoctor = doctor.get("Drname");
-                                    Navigator.pushNamed(context, "DS");
+                                    setState(() {
+                                      currentDoctor = doctor.get("Drname");
+                                      getData();
+                                      Navigator.pushNamed(context, "DS");
+                                      print(currentDoctor);
+                                    });
                                   },
                                   child: Container(
                                     child: Row(
@@ -392,15 +397,7 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
                             children: doctorsWidgets,
                           );
                         } else {
-                          return Center(
-                            child: Text(
-                              "لا يوجد دكاتره",
-                              style: GoogleFonts.almarai(
-                                  textStyle: TextStyle(
-                                fontSize: 28,
-                              )),
-                            ),
-                          );
+                          return Center();
                         }
                       },
                     ),

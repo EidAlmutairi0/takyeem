@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'DoctorSite.dart';
+
+var db = FirebaseFirestore.instance;
+
+double rate1 = 0;
+double rate2 = 0;
+double rate3 = 0;
+double rate4 = 0;
 
 const double scaleWidth = 200;
 const double scaleHeight = 15;
 const double titleFontSize = 20;
 const double scaleFontSize = 12;
 
-double rate = 0;
-double rate1 = 0;
-double rate2 = 0;
-double rate3 = 0;
-
 class Sliders extends StatefulWidget {
-  static double rangeTotal = (rate + rate1 + rate2 + rate3) / 4;
+  static double rangeTotal = (getRate1 + getRate2 + getRate3 + getRate4) / 4;
 
   @override
   _SlidersState createState() => _SlidersState();
@@ -45,79 +49,48 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
 
   Animation _curve;
 
-  double getRange() {
-    double sum = 0;
-    if (rates.length != 0) {
-      rates.forEach((e) => sum += e);
-      sum = sum / rates.length;
-    }
-    return sum;
-  }
-
-  double getRange1() {
-    double sum = 0;
-    if (rates1.length != 0) {
-      rates1.forEach((e) => sum += e);
-      sum = sum / rates1.length;
-    }
-    return sum;
-  }
-
-  double getRange2() {
-    double sum = 0;
-    if (rates2.length != 0) {
-      rates2.forEach((e) => sum += e);
-      sum = sum / rates2.length;
-    }
-    return sum;
-  }
-
-  double getRange3() {
-    double sum = 0;
-    if (rates3.length != 0) {
-      rates3.forEach((e) => sum += e);
-      sum = sum / rates3.length;
-    }
-    return sum;
-  }
-
   @override
   void initState() {
+    getData();
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2500),
     );
     _curve =
         CurvedAnimation(parent: _animationController, curve: Curves.decelerate);
-    _animation = Tween(begin: 0.0 * 20, end: getRange() * 20).animate(_curve)
+    _animation = Tween(begin: 0.0 * 20, end: getRate1 * 20).animate(_curve)
       ..addListener(() {
         setState(() {
-          rate = (_animation.value / 20);
+          rate1 = (_animation.value / 20);
         });
       });
-    _animation1 = Tween(begin: 0.0 * 20, end: getRange1() * 20).animate(_curve)
+    _animation1 = Tween(begin: 0.0 * 20, end: getRate2 * 20).animate(_curve)
       ..addListener(() {
         setState(() {
-          rate1 = (_animation1.value / 20);
+          rate2 = (_animation1.value / 20);
         });
       });
-    _animation2 = Tween(begin: 0.0 * 20, end: getRange2() * 20).animate(_curve)
+    _animation2 = Tween(begin: 0.0 * 20, end: getRate3 * 20).animate(_curve)
       ..addListener(() {
         setState(() {
-          rate2 = (_animation2.value / 20);
+          rate3 = (_animation2.value / 20);
         });
       });
-    _animation3 = Tween(begin: 0.0 * 20, end: getRange3() * 20).animate(_curve)
+    _animation3 = Tween(begin: 0.0 * 20, end: getRate4 * 20).animate(_curve)
       ..addListener(() {
         setState(() {
-          rate3 = (_animation3.value / 20);
+          rate4 = (_animation3.value / 20);
         });
       });
     _animationController.forward();
 
-    getRange();
-
     super.initState();
+  }
+
+  @override
+  void deactivate() {
+    _animationController.dispose();
+    super.deactivate();
   }
 
   @override
@@ -160,12 +133,12 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                         width: _animation.value,
                         height: scaleHeight,
                         decoration: BoxDecoration(
-                          color: scaleColor(getRange()),
+                          color: scaleColor(getRate1),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Center(
                           child: Text(
-                            "${(rate * 10).toInt()}%",
+                            "${(rate1 * 10).toInt()}%",
                             style: TextStyle(
                                 fontSize: scaleFontSize,
                                 fontWeight: FontWeight.bold),
@@ -209,12 +182,12 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                         width: _animation1.value,
                         height: scaleHeight,
                         decoration: BoxDecoration(
-                          color: scaleColor(getRange1()),
+                          color: scaleColor(getRate2),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Center(
                           child: Text(
-                            "${(rate1 * 10).toInt()}%",
+                            "${(rate2 * 10).toInt()}%",
                             style: TextStyle(
                                 fontSize: scaleFontSize,
                                 fontWeight: FontWeight.bold),
@@ -258,12 +231,12 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                         width: _animation2.value,
                         height: scaleHeight,
                         decoration: BoxDecoration(
-                          color: scaleColor(getRange2()),
+                          color: scaleColor(getRate3),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Center(
                           child: Text(
-                            "${(rate2 * 10).toInt()}%",
+                            "${(rate3 * 10).toInt()}%",
                             style: TextStyle(
                                 fontSize: scaleFontSize,
                                 fontWeight: FontWeight.bold),
@@ -307,12 +280,12 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                         width: _animation3.value,
                         height: scaleHeight,
                         decoration: BoxDecoration(
-                          color: scaleColor(getRange3()),
+                          color: scaleColor(getRate4),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Center(
                           child: Text(
-                            "${(rate3 * 10).toInt()}%",
+                            "${(rate4 * 10).toInt()}%",
                             style: TextStyle(
                                 fontSize: scaleFontSize,
                                 fontWeight: FontWeight.bold),

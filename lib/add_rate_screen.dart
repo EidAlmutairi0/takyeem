@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:status_alert/status_alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:takyeem/home_screen.dart';
+import 'CollegeDoctors.dart';
 
 double slider1 = 0;
 double slider2 = 0;
@@ -295,21 +296,32 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text("الرجاء كتابة تعليق"),
+                                          return CupertinoAlertDialog(
+                                            title: Text(
+                                              "هل انت متأكد من انك تريد الابلاغ؟",
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                            content: Text(
+                                                "يكون الإبلاغ على التعليقات التي تحمل إساءة مباشرة"),
                                             actions: <Widget>[
-                                              FlatButton(
-                                                child: Text("OK"),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
+                                              CupertinoDialogAction(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text("تأكيد")),
+                                              CupertinoDialogAction(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  isDefaultAction: true,
+                                                  child: Text("تراجع")),
                                             ],
                                           );
                                         });
                                   });
                                 } else {
                                   finalDate = getCurrentDate();
+
                                   _firestore
                                       .collection(
                                           "${currentUniversity.universityShortcut}")
@@ -318,17 +330,37 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                       .collection("colleges")
                                       .doc("/${currentCollege.collegeName}")
                                       .collection("Doctors")
-                                      .doc("${currentDoctor.toString()}")
-                                      .collection("rates")
-                                      .add({
-                                    "CureseNum": courseShortcut,
-                                    "Slider1": slider1,
-                                    "Slider2": slider2,
-                                    "Slider3": slider3,
-                                    "Slider4": slider4,
-                                    "comment": comment,
-                                    "addingDate": finalDate,
-                                  });
+                                      .doc("$currentDoctor")
+                                      .update({
+                                    "TotalSlider1":
+                                        FieldValue.increment(slider1),
+                                    "TotalSlider2":
+                                        FieldValue.increment(slider2),
+                                    "TotalSlider3":
+                                        FieldValue.increment(slider3),
+                                    "TotalSlider4":
+                                        FieldValue.increment(slider4),
+                                  }).then((value) => _firestore
+                                              .collection(
+                                                  "${currentUniversity.universityShortcut}")
+                                              .doc(
+                                                  "${currentUniversity.universityShortcut}")
+                                              .collection("colleges")
+                                              .doc(
+                                                  "/${currentCollege.collegeName}")
+                                              .collection("Doctors")
+                                              .doc(
+                                                  "${currentDoctor.toString()}")
+                                              .collection("rates")
+                                              .add({
+                                            "CureseNum": courseShortcut,
+                                            "Slider1": slider1,
+                                            "Slider2": slider2,
+                                            "Slider3": slider3,
+                                            "Slider4": slider4,
+                                            "comment": comment,
+                                            "addingDate": finalDate,
+                                          }));
 
                                   StatusAlert.show(
                                     context,

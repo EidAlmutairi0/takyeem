@@ -375,6 +375,10 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                       .doc("$doctorName")
                                       .set({
                                     "Drname": doctorName,
+                                    "TotalSlider1": slider1,
+                                    "TotalSlider2": slider2,
+                                    "TotalSlider3": slider3,
+                                    "TotalSlider4": slider4,
                                   }).then((value) => _firestore
                                               .collection(
                                                   "${currentUniversity.universityShortcut}")
