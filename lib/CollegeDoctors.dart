@@ -350,7 +350,6 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
                                   onPressed: () {
                                     setState(() {
                                       currentDoctor = doctor.get("Drname");
-                                      getData();
                                       Navigator.pushNamed(context, "DS");
                                       print(currentDoctor);
                                     });

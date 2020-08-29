@@ -8,36 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 int reatesSize = 0;
 
-double slider11 = 0;
-double slider22 = 0;
-double slider33 = 0;
-double slider44 = 0;
-
-double getRate1 = 0;
-double getRate2 = 0;
-double getRate3 = 0;
-double getRate4 = 0;
-
-getData() async {
-  var snapshot = await db
-      .collection("${currentUniversity.universityShortcut}")
-      .doc("${currentUniversity.universityShortcut}")
-      .collection("colleges")
-      .doc("${currentCollege.collegeName}")
-      .collection("Doctors")
-      .doc("$currentDoctor")
-      .get();
-
-  getRate1 = snapshot.get("TotalSlider1") / reatesSize;
-  getRate2 = snapshot.get("TotalSlider2") / reatesSize;
-  getRate3 = snapshot.get("TotalSlider3") / reatesSize;
-  getRate4 = snapshot.get("TotalSlider4") / reatesSize;
-  totalRates = ((getRate1 + getRate2 + getRate3 + getRate4) / 4);
-}
-
 final _firestore = FirebaseFirestore.instance;
-
-double totalRates = 0;
 
 class DoctorSite extends StatefulWidget {
   @override

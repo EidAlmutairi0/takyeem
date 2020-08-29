@@ -2,8 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'DoctorSite.dart';
+import 'home_screen.dart';
 
 var db = FirebaseFirestore.instance;
+
+Future getData() async {
+  var snapshot = await db
+      .collection("${currentUniversity.universityShortcut}")
+      .doc("${currentUniversity.universityShortcut}")
+      .collection("colleges")
+      .doc("${currentCollege.collegeName}")
+      .collection("Doctors")
+      .doc("$currentDoctor")
+      .get()
+      .then((DocumentSnapshot) {
+    getRate1 = DocumentSnapshot.get("TotalSlider1") / reatesSize;
+    getRate2 = DocumentSnapshot.get("TotalSlider2") / reatesSize;
+    getRate3 = DocumentSnapshot.get("TotalSlider3") / reatesSize;
+    getRate4 = DocumentSnapshot.get("TotalSlider4") / reatesSize;
+    totalRates = ((getRate1 + getRate2 + getRate3 + getRate4) / 4);
+  });
+}
+
+double totalRates = 0;
 
 double rate1 = 0;
 double rate2 = 0;
@@ -15,9 +36,12 @@ const double scaleHeight = 15;
 const double titleFontSize = 20;
 const double scaleFontSize = 12;
 
-class Sliders extends StatefulWidget {
-  static double rangeTotal = (getRate1 + getRate2 + getRate3 + getRate4) / 4;
+double getRate1 = 0;
+double getRate2 = 0;
+double getRate3 = 0;
+double getRate4 = 0;
 
+class Sliders extends StatefulWidget {
   @override
   _SlidersState createState() => _SlidersState();
 }
@@ -36,11 +60,6 @@ Color scaleColor(double num) {
 }
 
 class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
-  List<int> rates = [10, 8, 10, 10, 10, 10, 10, 8, 8, 6, 8];
-  List<int> rates1 = [8, 5, 7, 5, 4, 5, 8, 2, 6, 4, 5];
-  List<int> rates2 = [6, 9, 6, 9, 8, 7, 10, 8, 8, 6, 7];
-  List<int> rates3 = [5, 0, 7, 0, 4, 9, 0, 1, 2, 5, 4];
-
   AnimationController _animationController;
   Animation _animation;
   Animation _animation1;
@@ -51,10 +70,9 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    getData();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2500),
+      duration: Duration(milliseconds: 1500),
     );
     _curve =
         CurvedAnimation(parent: _animationController, curve: Curves.decelerate);
@@ -82,7 +100,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
           rate4 = (_animation3.value / 20);
         });
       });
-    _animationController.forward();
+    getData().then((value) => _animationController.forward());
 
     super.initState();
   }
@@ -93,7 +111,6 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
     super.deactivate();
   }
 
-  @override
   @override
   Widget build(BuildContext context) {
     return Center(
