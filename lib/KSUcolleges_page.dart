@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'get_colleges.dart';
 import 'add_rate_screen.dart';
-import 'widgets.dart';
 
 Widget buildAddRateButtomSheet(BuildContext context) => AddRateScreen();
 

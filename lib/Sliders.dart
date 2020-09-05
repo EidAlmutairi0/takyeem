@@ -1,35 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'DoctorSite.dart';
 import 'home_screen.dart';
-
-var db = FirebaseFirestore.instance;
-
-Future getData() async {
-  var snapshot = await db
-      .collection("${currentUniversity.universityShortcut}")
-      .doc("${currentUniversity.universityShortcut}")
-      .collection("colleges")
-      .doc("${currentCollege.collegeName}")
-      .collection("Doctors")
-      .doc("$currentDoctor")
-      .get()
-      .then((DocumentSnapshot) {
-    getRate1 = DocumentSnapshot.get("TotalSlider1") / reatesSize;
-    getRate2 = DocumentSnapshot.get("TotalSlider2") / reatesSize;
-    getRate3 = DocumentSnapshot.get("TotalSlider3") / reatesSize;
-    getRate4 = DocumentSnapshot.get("TotalSlider4") / reatesSize;
-    totalRates = ((getRate1 + getRate2 + getRate3 + getRate4) / 4);
-  });
-}
-
-double totalRates = 0;
 
 double rate1 = 0;
 double rate2 = 0;
 double rate3 = 0;
 double rate4 = 0;
+double totalRates = 0;
 
 const double scaleWidth = 200;
 const double scaleHeight = 15;
@@ -40,11 +17,7 @@ double getRate1 = 0;
 double getRate2 = 0;
 double getRate3 = 0;
 double getRate4 = 0;
-
-class Sliders extends StatefulWidget {
-  @override
-  _SlidersState createState() => _SlidersState();
-}
+int reatesSize = 0;
 
 Color scaleColor(double num) {
   if (num >= 8)
@@ -57,6 +30,11 @@ Color scaleColor(double num) {
     return Color(0xFFF3944F);
   else
     return Color(0xFFEB5846);
+}
+
+class Sliders extends StatefulWidget {
+  @override
+  _SlidersState createState() => _SlidersState();
 }
 
 class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
@@ -100,7 +78,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
           rate4 = (_animation3.value / 20);
         });
       });
-    getData().then((value) => _animationController.forward());
+    _animationController.forward();
 
     super.initState();
   }
@@ -115,206 +93,268 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  flex: 2,
-                  child: Text(
-                    "الشرح",
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+        height: 260,
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(30),
+              bottomLeft: Radius.circular(30)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    currentDoctor,
                     style: GoogleFonts.almarai(
                       textStyle: TextStyle(
-                        fontSize: titleFontSize,
+                        fontSize: 26,
                       ),
                     ),
                   ),
-                ),
-                Flexible(
-                  flex: 4,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: scaleWidth,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      Container(
-                        width: _animation.value,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: scaleColor(getRate1),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "${(rate1 * 10).toInt()}%",
-                            style: TextStyle(
-                                fontSize: scaleFontSize,
-                                fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Container(
+                    width: 60,
+                    height: 70,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: scaleColor(totalRates)),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${totalRates.toStringAsFixed(1)}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  flex: 2,
-                  child: Text(
-                    "التعامل",
-                    style: GoogleFonts.almarai(
-                      textStyle: TextStyle(
-                        fontSize: titleFontSize,
-                      ),
+                        Divider(),
+                        Text(
+                          "10.0",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Flexible(
-                  flex: 4,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: scaleWidth,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      Container(
-                        width: _animation1.value,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: scaleColor(getRate2),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Center(
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Flexible(
+                          flex: 2,
                           child: Text(
-                            "${(rate2 * 10).toInt()}%",
-                            style: TextStyle(
-                                fontSize: scaleFontSize,
-                                fontWeight: FontWeight.bold),
+                            "الشرح",
+                            style: GoogleFonts.almarai(
+                              textStyle: TextStyle(
+                                fontSize: titleFontSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  flex: 2,
-                  child: Text(
-                    "التحضير",
-                    style: GoogleFonts.almarai(
-                      textStyle: TextStyle(
-                        fontSize: titleFontSize,
-                      ),
+                        Flexible(
+                          flex: 4,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                width: scaleWidth,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              Container(
+                                width: _animation.value,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: scaleColor(getRate1),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${(rate1 * 10).toInt()}%",
+                                    style: TextStyle(
+                                        fontSize: scaleFontSize,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-                Flexible(
-                  flex: 4,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: scaleWidth,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      Container(
-                        width: _animation2.value,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: scaleColor(getRate3),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Center(
+                    SizedBox(height: 10),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Flexible(
+                          flex: 2,
                           child: Text(
-                            "${(rate3 * 10).toInt()}%",
-                            style: TextStyle(
-                                fontSize: scaleFontSize,
-                                fontWeight: FontWeight.bold),
+                            "التعامل",
+                            style: GoogleFonts.almarai(
+                              textStyle: TextStyle(
+                                fontSize: titleFontSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  flex: 2,
-                  child: Text(
-                    "الدرجات",
-                    style: GoogleFonts.almarai(
-                      textStyle: TextStyle(
-                        fontSize: titleFontSize,
-                      ),
+                        Flexible(
+                          flex: 4,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                width: scaleWidth,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              Container(
+                                width: _animation1.value,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: scaleColor(getRate2),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${(rate2 * 10).toInt()}%",
+                                    style: TextStyle(
+                                        fontSize: scaleFontSize,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-                Flexible(
-                  flex: 4,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: scaleWidth,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      Container(
-                        width: _animation3.value,
-                        height: scaleHeight,
-                        decoration: BoxDecoration(
-                          color: scaleColor(getRate4),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Center(
+                    SizedBox(height: 10),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Flexible(
+                          flex: 2,
                           child: Text(
-                            "${(rate4 * 10).toInt()}%",
-                            style: TextStyle(
-                                fontSize: scaleFontSize,
-                                fontWeight: FontWeight.bold),
+                            "التحضير",
+                            style: GoogleFonts.almarai(
+                              textStyle: TextStyle(
+                                fontSize: titleFontSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                        Flexible(
+                          flex: 4,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                width: scaleWidth,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              Container(
+                                width: _animation2.value,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: scaleColor(getRate3),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${(rate3 * 10).toInt()}%",
+                                    style: TextStyle(
+                                        fontSize: scaleFontSize,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Flexible(
+                          flex: 2,
+                          child: Text(
+                            "الدرجات",
+                            style: GoogleFonts.almarai(
+                              textStyle: TextStyle(
+                                fontSize: titleFontSize,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 4,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                width: scaleWidth,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              Container(
+                                width: _animation3.value,
+                                height: scaleHeight,
+                                decoration: BoxDecoration(
+                                  color: scaleColor(getRate4),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${(rate4 * 10).toInt()}%",
+                                    style: TextStyle(
+                                        fontSize: scaleFontSize,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

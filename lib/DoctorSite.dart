@@ -6,21 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'add_rate_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-int reatesSize = 0;
-
-final _firestore = FirebaseFirestore.instance;
-
-class DoctorSite extends StatefulWidget {
+class DoctorSite extends StatelessWidget {
+  final _firestore = FirebaseFirestore.instance;
   @override
-  _DoctorSiteState createState() => _DoctorSiteState();
-}
-
-class _DoctorSiteState extends State<DoctorSite> {
   @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +25,17 @@ class _DoctorSiteState extends State<DoctorSite> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
+        title: Text(
+          ("${currentUniversity.universityName}" +
+              "  -  " +
+              "${currentCollege.collegeName}"),
+          style: GoogleFonts.almarai(
+            textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+            ),
+          ),
+        ),
         brightness: Brightness.light,
         centerTitle: true,
         iconTheme: IconThemeData(
@@ -56,69 +56,31 @@ class _DoctorSiteState extends State<DoctorSite> {
               child: Center(
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      height: 260,
-                      decoration: BoxDecoration(
-                        color: Colors.white70,
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(30),
-                            bottomLeft: Radius.circular(30)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  currentDoctor,
-                                  style: GoogleFonts.almarai(
-                                    textStyle: TextStyle(
-                                      fontSize: 26,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                Container(
-                                  width: 60,
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: scaleColor(totalRates)),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "${totalRates.toStringAsFixed(1)}",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      Divider(),
-                                      Text(
-                                        "10.0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Sliders(),
-                          ],
-                        ),
-                      ),
+                    StreamBuilder<DocumentSnapshot>(
+                      stream: _firestore
+                          .collection("${currentUniversity.universityShortcut}")
+                          .doc("${currentUniversity.universityShortcut}")
+                          .collection("colleges")
+                          .doc("${currentCollege.collegeName}")
+                          .collection("Doctors")
+                          .doc("$currentDoctor")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final aDoctor = snapshot.data;
+
+                          reatesSize = aDoctor.get("numberOfRatings");
+                          totalRates = aDoctor.get("TotalRate") / reatesSize;
+                          getRate1 = aDoctor.get("TotalSlider1") / reatesSize;
+                          getRate2 = aDoctor.get("TotalSlider2") / reatesSize;
+                          getRate3 = aDoctor.get("TotalSlider3") / reatesSize;
+                          getRate4 = aDoctor.get("TotalSlider4") / reatesSize;
+
+                          return Sliders();
+                        } else {
+                          return Center();
+                        }
+                      },
                     ),
                     StreamBuilder<QuerySnapshot>(
                       stream: _firestore
@@ -149,7 +111,6 @@ class _DoctorSiteState extends State<DoctorSite> {
                             );
                             ratingsWidgets.add(ratingWidget);
                           }
-                          reatesSize = ratingsWidgets.length;
                           return Column(
                             children: ratingsWidgets,
                           );
@@ -172,6 +133,7 @@ class _DoctorSiteState extends State<DoctorSite> {
   }
 }
 
+// ignore: must_be_immutable
 class RateWidget extends StatefulWidget {
   String curseNum;
   String comment;

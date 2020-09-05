@@ -364,7 +364,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                   });
                                 } else {
                                   finalDate = getCurrentDate();
-                                  _firestore
+                                  var inss = _firestore
                                       .collection(
                                           "${currentUniversity.universityShortcut}")
                                       .doc(
@@ -372,33 +372,70 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                       .collection("colleges")
                                       .doc("/${currentCollege.collegeName}")
                                       .collection("Doctors")
-                                      .doc("$doctorName")
-                                      .set({
-                                    "Drname": doctorName,
-                                    "TotalSlider1": slider1,
-                                    "TotalSlider2": slider2,
-                                    "TotalSlider3": slider3,
-                                    "TotalSlider4": slider4,
-                                  }).then((value) => _firestore
-                                              .collection(
-                                                  "${currentUniversity.universityShortcut}")
-                                              .doc(
-                                                  "${currentUniversity.universityShortcut}")
-                                              .collection("colleges")
-                                              .doc(
-                                                  "/${currentCollege.collegeName}")
-                                              .collection("Doctors")
-                                              .doc("$doctorName")
-                                              .collection("rates")
-                                              .add({
-                                            "CureseNum": courseShortcut,
-                                            "Slider1": slider1,
-                                            "Slider2": slider2,
-                                            "Slider3": slider3,
-                                            "Slider4": slider4,
-                                            "comment": comment,
-                                            "addingDate": finalDate,
-                                          }));
+                                      .doc("$doctorName");
+                                  var test = inss.get().then((doc) => {
+                                        if (!doc.exists)
+                                          {
+                                            inss.set({
+                                              "Drname": doctorName,
+                                              "TotalSlider1":
+                                                  FieldValue.increment(slider1),
+                                              "TotalSlider2":
+                                                  FieldValue.increment(slider2),
+                                              "TotalSlider3":
+                                                  FieldValue.increment(slider3),
+                                              "TotalSlider4":
+                                                  FieldValue.increment(slider4),
+                                              "TotalRate": FieldValue.increment(
+                                                  (slider1 +
+                                                          slider2 +
+                                                          slider3 +
+                                                          slider4) /
+                                                      4),
+                                              "numberOfRatings":
+                                                  FieldValue.increment(1),
+                                            }).then((value) =>
+                                                inss.collection("rates").add({
+                                                  "CureseNum": courseShortcut,
+                                                  "Slider1": slider1,
+                                                  "Slider2": slider2,
+                                                  "Slider3": slider3,
+                                                  "Slider4": slider4,
+                                                  "comment": comment,
+                                                  "addingDate": finalDate,
+                                                })),
+                                          }
+                                        else
+                                          {
+                                            inss.update({
+                                              "TotalSlider1":
+                                                  FieldValue.increment(slider1),
+                                              "TotalSlider2":
+                                                  FieldValue.increment(slider2),
+                                              "TotalSlider3":
+                                                  FieldValue.increment(slider3),
+                                              "TotalSlider4":
+                                                  FieldValue.increment(slider4),
+                                              "TotalRate": FieldValue.increment(
+                                                  (slider1 +
+                                                          slider2 +
+                                                          slider3 +
+                                                          slider4) /
+                                                      4),
+                                              "numberOfRatings":
+                                                  FieldValue.increment(1),
+                                            }).then((value) =>
+                                                inss.collection("rates").add({
+                                                  "CureseNum": courseShortcut,
+                                                  "Slider1": slider1,
+                                                  "Slider2": slider2,
+                                                  "Slider3": slider3,
+                                                  "Slider4": slider4,
+                                                  "comment": comment,
+                                                  "addingDate": finalDate,
+                                                })),
+                                          }
+                                      });
 
                                   StatusAlert.show(
                                     context,

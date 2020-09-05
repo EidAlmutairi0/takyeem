@@ -54,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             child: FlatButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
               onPressed: () {
                 setState(() {
                   currentUniversity = Universities.universities[i];

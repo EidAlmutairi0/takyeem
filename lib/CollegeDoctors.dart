@@ -3,249 +3,8 @@ import 'home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'add_doctor_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'DoctorSite.dart';
 
 final _firestore = FirebaseFirestore.instance;
-
-List<Container> getDocs(BuildContext context) {
-  List<Container> Docs = [
-    Container(
-        height: 60,
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-            image: AssetImage('images/CardsBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: FlatButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "DS");
-          },
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
-                    child: Image(
-                      image: AssetImage("images/teacher.png"),
-                    )),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "احمد الصديق",
-                    textDirection: TextDirection.rtl,
-                    style: GoogleFonts.almarai(
-                        textStyle: TextStyle(
-                      fontSize: 18,
-                    )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )),
-    Container(
-        height: 60,
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-            image: AssetImage('images/CardsBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: FlatButton(
-          onPressed: () {},
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
-                    child: Image(
-                      image: AssetImage("images/teacher.png"),
-                    )),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "احمد الصديق",
-                    textDirection: TextDirection.rtl,
-                    style: GoogleFonts.almarai(
-                        textStyle: TextStyle(
-                      fontSize: 18,
-                    )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )),
-    Container(
-        height: 60,
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-            image: AssetImage('images/CardsBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: FlatButton(
-          onPressed: () {},
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
-                    child: Image(
-                      image: AssetImage("images/teacher.png"),
-                    )),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "احمد الصديق",
-                    textDirection: TextDirection.rtl,
-                    style: GoogleFonts.almarai(
-                        textStyle: TextStyle(
-                      fontSize: 18,
-                    )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )),
-    Container(
-        height: 60,
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-            image: AssetImage('images/CardsBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: FlatButton(
-          onPressed: () {},
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
-                    child: Image(
-                      image: AssetImage("images/teacher.png"),
-                    )),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "احمد الصديق",
-                    textDirection: TextDirection.rtl,
-                    style: GoogleFonts.almarai(
-                        textStyle: TextStyle(
-                      fontSize: 18,
-                    )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )),
-    Container(
-        height: 60,
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-            image: AssetImage('images/CardsBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: FlatButton(
-          onPressed: () {},
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
-                    child: Image(
-                      image: AssetImage("images/teacher.png"),
-                    )),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "احمد الصديق",
-                    textDirection: TextDirection.rtl,
-                    style: GoogleFonts.almarai(
-                        textStyle: TextStyle(
-                      fontSize: 18,
-                    )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )),
-    Container(
-        height: 60,
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-            image: AssetImage('images/CardsBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: FlatButton(
-          onPressed: () {},
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(2, 2, 0, 2),
-                    child: Image(
-                      image: AssetImage("images/teacher.png"),
-                    )),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "احمد الصديق",
-                    textDirection: TextDirection.rtl,
-                    style: GoogleFonts.almarai(
-                        textStyle: TextStyle(
-                      fontSize: 18,
-                    )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )),
-  ];
-  return Docs;
-}
-
-Widget buildAnimatedItem(
-  BuildContext context,
-  int index,
-  Animation<double> animation,
-) =>
-    // For example wrap with fade transition
-    FadeTransition(
-      opacity: Tween<double>(
-        begin: 0,
-        end: 1,
-      ).animate(animation),
-      // And slide transition
-      child: SlideTransition(
-        position: Tween<Offset>(
-          begin: Offset(0, -0.1),
-          end: Offset.zero,
-        ).animate(animation),
-        // Paste you Widget
-        child: getDocs(context)[index],
-      ),
-    );
 
 class CollegeDoctors extends StatefulWidget {
   @override
@@ -347,6 +106,8 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
                                   ),
                                 ),
                                 child: FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
                                   onPressed: () {
                                     setState(() {
                                       currentDoctor = doctor.get("Drname");
@@ -401,6 +162,9 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    height: 30,
+                  )
                 ],
               ),
             ),

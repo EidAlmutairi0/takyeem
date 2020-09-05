@@ -13,7 +13,6 @@ Widget buildAnimatedItem(
   int index,
   Animation<double> animation,
 ) =>
-    // For example wrap with fade transition
     FadeTransition(
       opacity: Tween<double>(
         begin: 0,
@@ -21,6 +20,7 @@ Widget buildAnimatedItem(
       ).animate(animation),
       // And slide transition
       child: SlideTransition(
+        transformHitTests: false,
         position: Tween<Offset>(
           begin: Offset(0, -0.1),
           end: Offset.zero,
@@ -48,6 +48,8 @@ List<Container> getColleges(int uniNum, BuildContext context) {
             ),
           ),
           child: FlatButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             onPressed: () {
               currentCollege =
                   Universities.universities[uniNum].universityColleges[i];

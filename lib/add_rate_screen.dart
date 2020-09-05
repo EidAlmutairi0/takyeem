@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:status_alert/status_alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:takyeem/home_screen.dart';
-import 'CollegeDoctors.dart';
 
 double slider1 = 0;
 double slider2 = 0;
@@ -292,33 +291,31 @@ class _AddRateScreenState extends State<AddRateScreen> {
                             onPressed: () {
                               setState(() {
                                 if (comment == null || comment == "") {
-                                  setState(() {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return CupertinoAlertDialog(
-                                            title: Text(
-                                              "هل انت متأكد من انك تريد الابلاغ؟",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            content: Text(
-                                                "يكون الإبلاغ على التعليقات التي تحمل إساءة مباشرة"),
-                                            actions: <Widget>[
-                                              CupertinoDialogAction(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text("تأكيد")),
-                                              CupertinoDialogAction(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  isDefaultAction: true,
-                                                  child: Text("تراجع")),
-                                            ],
-                                          );
-                                        });
-                                  });
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CupertinoAlertDialog(
+                                          title: Text(
+                                            "هل انت متأكد من انك تريد الابلاغ؟",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          content: Text(
+                                              "يكون الإبلاغ على التعليقات التي تحمل إساءة مباشرة"),
+                                          actions: <Widget>[
+                                            CupertinoDialogAction(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("تأكيد")),
+                                            CupertinoDialogAction(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                isDefaultAction: true,
+                                                child: Text("تراجع")),
+                                          ],
+                                        );
+                                      });
                                 } else {
                                   finalDate = getCurrentDate();
 
@@ -340,6 +337,12 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                         FieldValue.increment(slider3),
                                     "TotalSlider4":
                                         FieldValue.increment(slider4),
+                                    "TotalRate": FieldValue.increment((slider1 +
+                                            slider2 +
+                                            slider3 +
+                                            slider4) /
+                                        4),
+                                    "numberOfRatings": FieldValue.increment(1),
                                   }).then((value) => _firestore
                                               .collection(
                                                   "${currentUniversity.universityShortcut}")
@@ -369,6 +372,7 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                     configuration:
                                         IconConfiguration(icon: Icons.done),
                                   );
+
                                   Future.delayed(Duration(milliseconds: 1300))
                                       .then((value) =>
                                           Navigator.of(context).pop());
