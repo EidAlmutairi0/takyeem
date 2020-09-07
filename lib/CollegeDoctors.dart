@@ -82,7 +82,7 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 0),
                     child: StreamBuilder<QuerySnapshot>(
                       stream: _firestore
-                          .collection("${currentUniversity.universityShortcut}")
+                          .collection("UNis")
                           .doc("${currentUniversity.universityShortcut}")
                           .collection("colleges")
                           .doc("${currentCollege.collegeName}")

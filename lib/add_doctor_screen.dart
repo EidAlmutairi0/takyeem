@@ -326,47 +326,47 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                             onPressed: () {
                               setState(() {
                                 if (doctorName == null || doctorName == "") {
-                                  setState(() {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                                "الرجاء كتابة اسم الدكتور"),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                child: Text("OK"),
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CupertinoAlertDialog(
+                                          title: Text(
+                                            "الرجاء كتابة اسم الدكتور",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          actions: <Widget>[
+                                            CupertinoDialogAction(
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
+                                                  Navigator.pop(context);
                                                 },
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  });
+                                                isDefaultAction: true,
+                                                child: Text("حسناً")),
+                                          ],
+                                        );
+                                      });
                                 } else if (comment == null || comment == "") {
-                                  setState(() {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text("الرجاء كتابة تعليق"),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                child: Text("OK"),
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CupertinoAlertDialog(
+                                          title: Text(
+                                            "الرجاء كتابة تعليق",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          actions: <Widget>[
+                                            CupertinoDialogAction(
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
+                                                  Navigator.pop(context);
                                                 },
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  });
+                                                isDefaultAction: true,
+                                                child: Text("حسناً")),
+                                          ],
+                                        );
+                                      });
                                 } else {
                                   finalDate = getCurrentDate();
                                   var inss = _firestore
-                                      .collection(
-                                          "${currentUniversity.universityShortcut}")
+                                      .collection("UNis")
                                       .doc(
                                           "${currentUniversity.universityShortcut}")
                                       .collection("colleges")

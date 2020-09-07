@@ -296,23 +296,16 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                       builder: (BuildContext context) {
                                         return CupertinoAlertDialog(
                                           title: Text(
-                                            "هل انت متأكد من انك تريد الابلاغ؟",
+                                            "الرجاء كتابة تعليق",
                                             style: TextStyle(fontSize: 16),
                                           ),
-                                          content: Text(
-                                              "يكون الإبلاغ على التعليقات التي تحمل إساءة مباشرة"),
                                           actions: <Widget>[
                                             CupertinoDialogAction(
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: Text("تأكيد")),
-                                            CupertinoDialogAction(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
                                                 isDefaultAction: true,
-                                                child: Text("تراجع")),
+                                                child: Text("حسناً")),
                                           ],
                                         );
                                       });
@@ -320,8 +313,7 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                   finalDate = getCurrentDate();
 
                                   _firestore
-                                      .collection(
-                                          "${currentUniversity.universityShortcut}")
+                                      .collection("UNis")
                                       .doc(
                                           "${currentUniversity.universityShortcut}")
                                       .collection("colleges")
@@ -344,16 +336,14 @@ class _AddRateScreenState extends State<AddRateScreen> {
                                         4),
                                     "numberOfRatings": FieldValue.increment(1),
                                   }).then((value) => _firestore
-                                              .collection(
-                                                  "${currentUniversity.universityShortcut}")
+                                              .collection("UNis")
                                               .doc(
                                                   "${currentUniversity.universityShortcut}")
                                               .collection("colleges")
                                               .doc(
                                                   "/${currentCollege.collegeName}")
                                               .collection("Doctors")
-                                              .doc(
-                                                  "${currentDoctor.toString()}")
+                                              .doc("$currentDoctor")
                                               .collection("rates")
                                               .add({
                                             "CureseNum": courseShortcut,

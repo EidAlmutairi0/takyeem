@@ -6,8 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'add_rate_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DoctorSite extends StatelessWidget {
-  final _firestore = FirebaseFirestore.instance;
+final _firestore = FirebaseFirestore.instance;
+
+class DoctorSite extends StatefulWidget {
+  @override
+  _DoctorSiteState createState() => _DoctorSiteState();
+}
+
+class _DoctorSiteState extends State<DoctorSite> {
   @override
   @override
   @override
@@ -16,8 +22,10 @@ class DoctorSite extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF06567A),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddRateScreen()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddRateScreen()),
+          ).then((value) => setState(() {}));
         },
         child: Icon(
           Icons.add,
@@ -58,7 +66,7 @@ class DoctorSite extends StatelessWidget {
                   children: [
                     StreamBuilder<DocumentSnapshot>(
                       stream: _firestore
-                          .collection("${currentUniversity.universityShortcut}")
+                          .collection("UNis")
                           .doc("${currentUniversity.universityShortcut}")
                           .collection("colleges")
                           .doc("${currentCollege.collegeName}")
@@ -70,7 +78,7 @@ class DoctorSite extends StatelessWidget {
                           final aDoctor = snapshot.data;
 
                           reatesSize = aDoctor.get("numberOfRatings");
-                          totalRates = aDoctor.get("TotalRate") / reatesSize;
+                          getTotalRates = aDoctor.get("TotalRate") / reatesSize;
                           getRate1 = aDoctor.get("TotalSlider1") / reatesSize;
                           getRate2 = aDoctor.get("TotalSlider2") / reatesSize;
                           getRate3 = aDoctor.get("TotalSlider3") / reatesSize;
@@ -84,7 +92,7 @@ class DoctorSite extends StatelessWidget {
                     ),
                     StreamBuilder<QuerySnapshot>(
                       stream: _firestore
-                          .collection("${currentUniversity.universityShortcut}")
+                          .collection("UNis")
                           .doc("${currentUniversity.universityShortcut}")
                           .collection("colleges")
                           .doc("${currentCollege.collegeName}")
@@ -100,6 +108,7 @@ class DoctorSite extends StatelessWidget {
                             var curesNum = aRate.get("CureseNum");
                             final comment = aRate.get("comment");
                             final date = aRate.get("addingDate");
+                            final id = aRate.id;
 
                             curesNum == null
                                 ? curesNum = ""
@@ -107,6 +116,7 @@ class DoctorSite extends StatelessWidget {
                             final ratingWidget = RateWidget(
                               curseNum: curesNum,
                               comment: comment,
+                              docID: id,
                               date: date,
                             );
                             ratingsWidgets.add(ratingWidget);
@@ -138,42 +148,24 @@ class RateWidget extends StatefulWidget {
   String curseNum;
   String comment;
   String date;
+  String docID;
 
-  RateWidget({this.curseNum, this.comment, this.date});
+  RateWidget({this.curseNum, this.comment, this.date, this.docID});
 
   @override
   _RateWidgetState createState() => _RateWidgetState();
 }
 
 class _RateWidgetState extends State<RateWidget> {
-  void displayDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text(
-                "هل انت متأكد من انك تريد الابلاغ؟",
-                style: TextStyle(fontSize: 16),
-              ),
-              content:
-                  Text("يكون الإبلاغ على التعليقات التي تحمل إساءة مباشرة"),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("تأكيد")),
-                CupertinoDialogAction(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    isDefaultAction: true,
-                    child: Text("تراجع")),
-              ],
-            ));
-  }
-
   @override
   Widget build(BuildContext context) {
+    String path = "${currentUniversity.universityName}" +
+        " - " +
+        "${currentCollege.collegeName} " +
+        " - " +
+        "$currentDoctor " +
+        " - " +
+        "${widget.docID}";
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black26),
@@ -242,7 +234,35 @@ class _RateWidgetState extends State<RateWidget> {
                 iconSize: 25,
                 alignment: Alignment.bottomLeft,
                 padding: EdgeInsets.all(5),
-                onPressed: displayDialog,
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => CupertinoAlertDialog(
+                            title: Text(
+                              "هل انت متأكد من انك تريد الابلاغ؟",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            content: Text(
+                                "يكون الإبلاغ على التعليقات التي تحمل إساءة مباشرة"),
+                            actions: <Widget>[
+                              CupertinoDialogAction(
+                                  onPressed: () {
+                                    _firestore.collection("Complaints").add({
+                                      "comment": widget.comment,
+                                      "path": path,
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("تأكيد")),
+                              CupertinoDialogAction(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  isDefaultAction: true,
+                                  child: Text("تراجع")),
+                            ],
+                          ));
+                },
                 icon: Icon(Icons.error_outline),
                 tooltip: "إبلاغ",
               ),

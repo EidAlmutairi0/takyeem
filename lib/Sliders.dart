@@ -17,19 +17,31 @@ double getRate1 = 0;
 double getRate2 = 0;
 double getRate3 = 0;
 double getRate4 = 0;
+double getTotalRates = 0;
+
 int reatesSize = 0;
 
 Color scaleColor(double num) {
-  if (num >= 8)
-    return Color(0xFF59AE51);
-  else if (num >= 6 && num < 8)
-    return Color(0xFFB1CD4C);
-  else if (num >= 4 && num < 6)
-    return Color(0xFFFBC634);
-  else if (num >= 2 && num < 4)
-    return Color(0xFFF3944F);
+  if (num >= 9)
+    return Color(0xFF05FF01);
+  else if (num >= 8 && num < 9)
+    return Color(0xFF30F001);
+  else if (num >= 7 && num < 8)
+    return Color(0xFF64F500);
+  else if (num >= 6 && num < 7)
+    return Color(0xFF99FE00);
+  else if (num >= 5 && num < 6)
+    return Color(0xFFCCFF00);
+  else if (num >= 4 && num < 5)
+    return Color(0xFFF9FC00);
+  else if (num >= 3 && num < 4)
+    return Color(0xFFFCCA00);
+  else if (num >= 2 && num < 3)
+    return Color(0xFFFF9A01);
+  else if (num >= 1 && num < 2)
+    return Color(0xFFFE6701);
   else
-    return Color(0xFFEB5846);
+    return Color(0xFFFF3301);
 }
 
 class Sliders extends StatefulWidget {
@@ -43,11 +55,13 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
   Animation _animation1;
   Animation _animation2;
   Animation _animation3;
+  Animation _animation4;
 
   Animation _curve;
 
   @override
   void initState() {
+    totalRates = getTotalRates;
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 1500),
@@ -76,6 +90,12 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
       ..addListener(() {
         setState(() {
           rate4 = (_animation3.value / 20);
+        });
+      });
+    _animation4 = Tween(begin: 0.0, end: getTotalRates).animate(_curve)
+      ..addListener(() {
+        setState(() {
+          totalRates = (_animation3.value / 20);
         });
       });
     _animationController.forward();
@@ -186,7 +206,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(getRate1),
+                                  color: scaleColor(rate1),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
@@ -235,7 +255,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation1.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(getRate2),
+                                  color: scaleColor(rate2),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
@@ -284,7 +304,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation2.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(getRate3),
+                                  color: scaleColor(rate3),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
@@ -333,7 +353,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation3.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(getRate4),
+                                  color: scaleColor(rate4),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
