@@ -8,6 +8,12 @@ double rate3 = 0;
 double rate4 = 0;
 double totalRates = 0;
 
+double temprate1 = 0;
+double temprate2 = 0;
+double temprate3 = 0;
+double temprate4 = 0;
+double temptotalRates = 0;
+
 const double scaleWidth = 200;
 const double scaleHeight = 15;
 const double titleFontSize = 20;
@@ -22,26 +28,16 @@ double getTotalRates = 0;
 int reatesSize = 0;
 
 Color scaleColor(double num) {
-  if (num >= 9)
-    return Color(0xFF05FF01);
-  else if (num >= 8 && num < 9)
-    return Color(0xFF30F001);
-  else if (num >= 7 && num < 8)
-    return Color(0xFF64F500);
-  else if (num >= 6 && num < 7)
-    return Color(0xFF99FE00);
-  else if (num >= 5 && num < 6)
-    return Color(0xFFCCFF00);
-  else if (num >= 4 && num < 5)
-    return Color(0xFFF9FC00);
-  else if (num >= 3 && num < 4)
-    return Color(0xFFFCCA00);
-  else if (num >= 2 && num < 3)
-    return Color(0xFFFF9A01);
-  else if (num >= 1 && num < 2)
-    return Color(0xFFFE6701);
+  if (num >= 8)
+    return Color(0xFF59AE51);
+  else if (num >= 6 && num < 8)
+    return Color(0xFFB1CD4C);
+  else if (num >= 4 && num < 6)
+    return Color(0xFFFBC634);
+  else if (num >= 2 && num < 4)
+    return Color(0xFFF3944F);
   else
-    return Color(0xFFFF3301);
+    return Color(0xFFEB5846);
 }
 
 class Sliders extends StatefulWidget {
@@ -61,6 +57,12 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
+    temprate1 = getRate1;
+    temprate2 = getRate2;
+    temprate3 = getRate3;
+    temprate4 = getRate4;
+    temptotalRates = getTotalRates;
+
     totalRates = getTotalRates;
     _animationController = AnimationController(
       vsync: this,
@@ -95,7 +97,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
     _animation4 = Tween(begin: 0.0, end: getTotalRates).animate(_curve)
       ..addListener(() {
         setState(() {
-          totalRates = (_animation3.value / 20);
+          totalRates = (_animation4.value);
         });
       });
     _animationController.forward();
@@ -114,7 +116,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
     return Center(
       child: Container(
         margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
-        height: 260,
+        height: 280,
         decoration: BoxDecoration(
           color: Colors.white70,
           borderRadius: BorderRadius.only(
@@ -124,7 +126,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
@@ -145,13 +147,13 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                     width: 60,
                     height: 70,
                     decoration: BoxDecoration(
-                        border: Border.all(color: scaleColor(totalRates)),
+                        border: Border.all(color: scaleColor(temptotalRates)),
                         borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "${totalRates.toStringAsFixed(1)}",
+                          "${temptotalRates.toStringAsFixed(1)}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -170,8 +172,19 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                   ),
                 ],
               ),
+              Text(
+                ("${currentUniversity.universityName}" +
+                    "  -  " +
+                    "${currentCollege.collegeName}"),
+                style: GoogleFonts.almarai(
+                  textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -206,7 +219,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(rate1),
+                                  color: scaleColor(temprate1),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
@@ -255,7 +268,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation1.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(rate2),
+                                  color: scaleColor(temprate2),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
@@ -304,7 +317,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation2.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(rate3),
+                                  color: scaleColor(temprate3),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
@@ -353,7 +366,7 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                                 width: _animation3.value,
                                 height: scaleHeight,
                                 decoration: BoxDecoration(
-                                  color: scaleColor(rate4),
+                                  color: scaleColor(temprate4),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(

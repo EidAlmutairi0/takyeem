@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                         margin: EdgeInsets.symmetric(
                             vertical: 5.0, horizontal: 25.0),
-                        child: TextFormField(
+                        child: TextField(
                           style: TextStyle(fontSize: 20),
                           cursorRadius: Radius.circular(10),
                           maxLines: 1,

@@ -18,8 +18,12 @@ class _CollegeDoctorsState extends State<CollegeDoctors> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF06567A),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddDoctorScreen()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddDoctorScreen(),
+            ),
+          );
         },
         child: Icon(
           Icons.add,

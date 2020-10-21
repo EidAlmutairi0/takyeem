@@ -33,17 +33,6 @@ class _DoctorSiteState extends State<DoctorSite> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
-        title: Text(
-          ("${currentUniversity.universityName}" +
-              "  -  " +
-              "${currentCollege.collegeName}"),
-          style: GoogleFonts.almarai(
-            textStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-            ),
-          ),
-        ),
         brightness: Brightness.light,
         centerTitle: true,
         iconTheme: IconThemeData(
@@ -99,6 +88,7 @@ class _DoctorSiteState extends State<DoctorSite> {
                           .collection("Doctors")
                           .doc("$currentDoctor")
                           .collection("rates")
+                          .orderBy('addingDate', descending: false)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -168,8 +158,8 @@ class _RateWidgetState extends State<RateWidget> {
         "${widget.docID}";
     return Container(
       decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [Colors.white70, Colors.white]),
         border: Border.all(color: Colors.black26),
-        color: Colors.white70,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       margin: EdgeInsets.fromLTRB(40, 10, 40, 0),
@@ -263,7 +253,7 @@ class _RateWidgetState extends State<RateWidget> {
                             ],
                           ));
                 },
-                icon: Icon(Icons.error_outline),
+                icon: Icon(Icons.flag_outlined),
                 tooltip: "إبلاغ",
               ),
             ],

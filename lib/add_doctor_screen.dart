@@ -317,8 +317,9 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [Colors.lightGreen, Colors.green]),
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green,
                           ),
                           height: 60,
                           width: 150,
@@ -365,6 +366,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                       });
                                 } else {
                                   finalDate = getCurrentDate();
+
                                   var inss = _firestore
                                       .collection("UNis")
                                       .doc(
@@ -466,8 +468,9 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [Colors.red, Color(0xFFF44336)]),
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.red,
                           ),
                           height: 60,
                           width: 150,
