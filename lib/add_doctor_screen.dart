@@ -378,34 +378,58 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                   var test = inss.get().then((doc) => {
                                         if (!doc.exists)
                                           {
-                                            inss.set({
-                                              "Drname": doctorName,
-                                              "TotalSlider1":
-                                                  FieldValue.increment(slider1),
-                                              "TotalSlider2":
-                                                  FieldValue.increment(slider2),
-                                              "TotalSlider3":
-                                                  FieldValue.increment(slider3),
-                                              "TotalSlider4":
-                                                  FieldValue.increment(slider4),
-                                              "TotalRate": FieldValue.increment(
-                                                  (slider1 +
-                                                          slider2 +
-                                                          slider3 +
-                                                          slider4) /
-                                                      4),
-                                              "numberOfRatings":
-                                                  FieldValue.increment(1),
-                                            }).then((value) =>
-                                                inss.collection("rates").add({
-                                                  "CureseNum": courseShortcut,
-                                                  "Slider1": slider1,
-                                                  "Slider2": slider2,
-                                                  "Slider3": slider3,
-                                                  "Slider4": slider4,
-                                                  "comment": comment,
-                                                  "addingDate": finalDate,
-                                                })),
+                                            inss
+                                                .set({
+                                                  "Drname": doctorName,
+                                                  "TotalSlider1":
+                                                      FieldValue.increment(
+                                                          slider1),
+                                                  "TotalSlider2":
+                                                      FieldValue.increment(
+                                                          slider2),
+                                                  "TotalSlider3":
+                                                      FieldValue.increment(
+                                                          slider3),
+                                                  "TotalSlider4":
+                                                      FieldValue.increment(
+                                                          slider4),
+                                                  "TotalRate":
+                                                      FieldValue.increment(
+                                                          (slider1 +
+                                                                  slider2 +
+                                                                  slider3 +
+                                                                  slider4) /
+                                                              4),
+                                                  "numberOfRatings":
+                                                      FieldValue.increment(1),
+                                                })
+                                                .then((value) => inss
+                                                        .collection("rates")
+                                                        .add({
+                                                      "CureseNum":
+                                                          courseShortcut,
+                                                      "Slider1": slider1,
+                                                      "Slider2": slider2,
+                                                      "Slider3": slider3,
+                                                      "Slider4": slider4,
+                                                      "comment": comment,
+                                                      "addingDate": finalDate,
+                                                    }))
+                                                .then((value) => {
+                                                      _firestore
+                                                          .collection(
+                                                              "All Doctors")
+                                                          .add({
+                                                        "Dr name": doctorName,
+                                                        "Dr Uni": currentUniversity
+                                                            .universityShortcut,
+                                                        "Dr College":
+                                                            currentCollege
+                                                                .collegeName,
+                                                        "searchKey":
+                                                            doctorName[0],
+                                                      })
+                                                    }),
                                           }
                                         else
                                           {

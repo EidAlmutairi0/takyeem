@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'Universities.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,9 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'University.dart';
 import 'colleges.dart';
+import 'package:getwidget/getwidget.dart';
 
 // ignore: non_constant_identifier_names
 List<Container> Unis = [];
+var queryResultSet = [];
+var tempSearchStore = [];
 University currentUniversity;
 Colleges currentCollege;
 String currentDoctor;
@@ -18,6 +22,7 @@ Widget buildAnimatedItem(
   Animation<double> animation,
 ) =>
     // For example wrap with fade transition
+
     FadeTransition(
       opacity: Tween<double>(
         begin: 0,
@@ -90,6 +95,13 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  List list = [
+    "Flutter",
+    "React",
+    "Ionic",
+    "Xamarin",
+  ];
+
   @override
   void initState() {
     createUniversities();
@@ -136,25 +148,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Card(
-                        color: Colors.white,
-                        margin: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 25.0),
-                        child: TextField(
-                          style: TextStyle(fontSize: 20),
-                          cursorRadius: Radius.circular(10),
-                          maxLines: 1,
-                          cursorWidth: 2,
-                          decoration: InputDecoration(
-                            labelText: "اسم الدكتور",
-                            labelStyle: TextStyle(),
-                            icon: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
-                              child: Icon(Icons.search),
+                      child: GFSearchBar(
+                        searchList: list,
+                        searchQueryBuilder: (query, list) {
+                          return list
+                              .where((item) => item
+                                  .toLowerCase()
+                                  .contains(query.toLowerCase()))
+                              .toList();
+                        },
+                        overlaySearchListItemBuilder: (item) {
+                          return Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              item,
+                              style: const TextStyle(fontSize: 18),
                             ),
-                            border: InputBorder.none,
-                          ),
-                        ),
+                          );
+                        },
+                        onItemSelected: (item) {
+                          setState(() {
+                            print('$item');
+                          });
+                        },
                       ),
                     ),
                     SizedBox(

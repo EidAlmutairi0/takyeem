@@ -96,6 +96,11 @@ class _DoctorSiteState extends State<DoctorSite> {
                           List<RateWidget> ratingsWidgets = [];
                           for (var aRate in ratings) {
                             var curesNum = aRate.get("CureseNum");
+                            var comRate1 = aRate.get("Slider1");
+                            var comRate2 = aRate.get("Slider2");
+                            var comRate3 = aRate.get("Slider3");
+                            var comRate4 = aRate.get("Slider4");
+
                             final comment = aRate.get("comment");
                             final date = aRate.get("addingDate");
                             final id = aRate.id;
@@ -108,6 +113,10 @@ class _DoctorSiteState extends State<DoctorSite> {
                               comment: comment,
                               docID: id,
                               date: date,
+                              rate1: comRate1,
+                              rate2: comRate2,
+                              rate3: comRate3,
+                              rate4: comRate4,
                             );
                             ratingsWidgets.add(ratingWidget);
                           }
@@ -139,8 +148,20 @@ class RateWidget extends StatefulWidget {
   String comment;
   String date;
   String docID;
+  double rate1;
+  double rate2;
+  double rate3;
+  double rate4;
 
-  RateWidget({this.curseNum, this.comment, this.date, this.docID});
+  RateWidget(
+      {this.curseNum,
+      this.comment,
+      this.date,
+      this.docID,
+      this.rate1,
+      this.rate2,
+      this.rate3,
+      this.rate4});
 
   @override
   _RateWidgetState createState() => _RateWidgetState();
@@ -239,7 +260,15 @@ class _RateWidgetState extends State<RateWidget> {
                                   onPressed: () {
                                     _firestore.collection("Complaints").add({
                                       "comment": widget.comment,
-                                      "path": path,
+                                      "university":
+                                          currentUniversity.universityName,
+                                      "college": currentCollege.collegeName,
+                                      "Dr": currentDoctor,
+                                      "ID": widget.docID,
+                                      "Rate1": rate1,
+                                      "Rate2": rate2,
+                                      "Rate3": rate3,
+                                      "Rate4": rate4,
                                     });
                                     Navigator.pop(context);
                                   },
