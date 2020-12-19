@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'get_colleges.dart';
 import 'add_rate_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'main.dart';
 
 Widget buildAddRateButtomSheet(BuildContext context) => AddRateScreen();
 
@@ -16,8 +14,6 @@ class KSUCollegesPage extends StatefulWidget {
 }
 
 class _KSUCollegesPageState extends State<KSUCollegesPage> {
-  final _firestore = FirebaseFirestore.instance;
-
   @override
   void initState() {
     getColleges(0, context);

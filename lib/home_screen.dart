@@ -7,7 +7,6 @@ import 'package:auto_animated/auto_animated.dart';
 import 'University.dart';
 import 'colleges.dart';
 import 'Algolia_Application.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 // ignore: non_constant_identifier_names
 List<Container> Unis = [];
@@ -100,7 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  @override
   final Algolia _algoliaApp = AlgoliaApplication.algolia;
   String _searchTerm;
 
@@ -122,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    var selectedValue;
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -252,16 +249,24 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class DisplaySearchResult extends StatefulWidget {
+  // ignore: non_constant_identifier_names
   final String DocName;
+  // ignore: non_constant_identifier_names
   final String DocCollege;
+  // ignore: non_constant_identifier_names
   final String DocUni;
+  // ignore: non_constant_identifier_names
   final String DocUniShortcut;
 
   DisplaySearchResult(
       {Key key,
+      // ignore: non_constant_identifier_names
       this.DocCollege,
+      // ignore: non_constant_identifier_names
       this.DocName,
+      // ignore: non_constant_identifier_names
       this.DocUni,
+      // ignore: non_constant_identifier_names
       this.DocUniShortcut})
       : super(key: key);
 

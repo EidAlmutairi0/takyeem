@@ -375,7 +375,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                       .doc("/${currentCollege.collegeName}")
                                       .collection("Doctors")
                                       .doc("$doctorName");
-                                  var test = inss.get().then((doc) => {
+                                  inss.get().then((doc) => {
                                         if (!doc.exists)
                                           {
                                             inss

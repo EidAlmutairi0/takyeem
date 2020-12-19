@@ -173,9 +173,9 @@ class _SlidersState extends State<Sliders> with SingleTickerProviderStateMixin {
                 ],
               ),
               Text(
-                ("${currentUniversityNameInSearch}" +
+                ("$currentUniversityNameInSearch" +
                     "  -  " +
-                    "${currentCollegeInSearch}"),
+                    "$currentCollegeInSearch"),
                 style: GoogleFonts.almarai(
                   textStyle: TextStyle(
                     color: Colors.black,

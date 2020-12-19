@@ -168,13 +168,6 @@ class RateWidget extends StatefulWidget {
 class _RateWidgetState extends State<RateWidget> {
   @override
   Widget build(BuildContext context) {
-    String path = "${currentUniversity.universityName}" +
-        " - " +
-        "${currentCollege.collegeName} " +
-        " - " +
-        "$currentDoctor " +
-        " - " +
-        "${widget.docID}";
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [Colors.white70, Colors.white]),
