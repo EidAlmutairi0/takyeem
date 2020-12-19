@@ -421,8 +421,12 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                                                               "All Doctors")
                                                           .add({
                                                         "Dr name": doctorName,
-                                                        "Dr Uni": currentUniversity
-                                                            .universityShortcut,
+                                                        "Dr Uni":
+                                                            currentUniversity
+                                                                .universityName,
+                                                        "Dr Uni shortcut":
+                                                            currentUniversity
+                                                                .universityShortcut,
                                                         "Dr College":
                                                             currentCollege
                                                                 .collegeName,

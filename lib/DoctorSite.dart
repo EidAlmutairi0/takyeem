@@ -15,8 +15,6 @@ class DoctorSite extends StatefulWidget {
 
 class _DoctorSiteState extends State<DoctorSite> {
   @override
-  @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(

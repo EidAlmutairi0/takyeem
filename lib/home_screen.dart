@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:algolia/algolia.dart';
 import 'package:flutter/material.dart';
 import 'Universities.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'University.dart';
 import 'colleges.dart';
-import 'package:getwidget/getwidget.dart';
+import 'Algolia_Application.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 // ignore: non_constant_identifier_names
 List<Container> Unis = [];
@@ -15,6 +16,10 @@ var tempSearchStore = [];
 University currentUniversity;
 Colleges currentCollege;
 String currentDoctor;
+String currentUniversityNameInSearch;
+String currentUniversityInSearch;
+String currentCollegeInSearch;
+String currentDoctorInSearch;
 
 Widget buildAnimatedItem(
   BuildContext context,
@@ -95,12 +100,18 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  List list = [
-    "Flutter",
-    "React",
-    "Ionic",
-    "Xamarin",
-  ];
+  @override
+  final Algolia _algoliaApp = AlgoliaApplication.algolia;
+  String _searchTerm;
+
+  Future<List<AlgoliaObjectSnapshot>> _operation(String input) async {
+    AlgoliaQuery query = _algoliaApp.instance.index("Doctors").search(input);
+    AlgoliaQuerySnapshot querySnap = await query.getObjects();
+    List<AlgoliaObjectSnapshot> results = querySnap.hits;
+    return results;
+  }
+
+  List list = [];
 
   @override
   void initState() {
@@ -111,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    var selectedValue;
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -146,32 +158,68 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: GFSearchBar(
-                        searchList: list,
-                        searchQueryBuilder: (query, list) {
-                          return list
-                              .where((item) => item
-                                  .toLowerCase()
-                                  .contains(query.toLowerCase()))
-                              .toList();
-                        },
-                        overlaySearchListItemBuilder: (item) {
-                          return Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(
-                              item,
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          );
-                        },
-                        onItemSelected: (item) {
+                    TextFormField(
+                        onChanged: (val) {
                           setState(() {
-                            print('$item');
+                            _searchTerm = val;
                           });
                         },
-                      ),
+                        style: new TextStyle(color: Colors.black, fontSize: 20),
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Search ...',
+                            hintStyle: TextStyle(color: Colors.black),
+                            prefixIcon:
+                                const Icon(Icons.search, color: Colors.black))),
+                    StreamBuilder<List<AlgoliaObjectSnapshot>>(
+                      stream: Stream.fromFuture(_operation(_searchTerm)),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData)
+                          return Text(
+                            "Start Typing",
+                            style: TextStyle(color: Colors.black),
+                          );
+                        else {
+                          List<AlgoliaObjectSnapshot> currSearchStuff =
+                              snapshot.data;
+
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return Container();
+                            default:
+                              if (snapshot.hasError)
+                                return new Text('Error: ${snapshot.error}');
+                              else
+                                return CustomScrollView(
+                                  shrinkWrap: true,
+                                  slivers: <Widget>[
+                                    SliverList(
+                                      delegate: SliverChildBuilderDelegate(
+                                        (context, index) {
+                                          if (_searchTerm.length > 0) {
+                                            var aDoc = currSearchStuff[index]
+                                                .data
+                                                .values
+                                                .toList();
+
+                                            return (DisplaySearchResult(
+                                              DocName: aDoc[3],
+                                              DocCollege: aDoc[0],
+                                              DocUni: aDoc[1],
+                                              DocUniShortcut: aDoc[2],
+                                            ));
+                                          } else {
+                                            return Container();
+                                          }
+                                        },
+                                        childCount: currSearchStuff.length ?? 0,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                          }
+                        }
+                      },
                     ),
                     SizedBox(
                       height: 8,
@@ -200,5 +248,59 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     ));
+  }
+}
+
+class DisplaySearchResult extends StatefulWidget {
+  final String DocName;
+  final String DocCollege;
+  final String DocUni;
+  final String DocUniShortcut;
+
+  DisplaySearchResult(
+      {Key key,
+      this.DocCollege,
+      this.DocName,
+      this.DocUni,
+      this.DocUniShortcut})
+      : super(key: key);
+
+  @override
+  _DisplaySearchResultState createState() => _DisplaySearchResultState();
+}
+
+class _DisplaySearchResultState extends State<DisplaySearchResult> {
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+        setState(() {
+          currentUniversityNameInSearch = widget.DocUni;
+          currentUniversityInSearch = widget.DocUniShortcut;
+          currentCollegeInSearch = widget.DocCollege;
+          currentDoctorInSearch = widget.DocName;
+        });
+        Navigator.pushNamed(context, "DSNS");
+      },
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              widget.DocName,
+              style: TextStyle(color: Colors.black),
+            ),
+            Text(
+              widget.DocCollege,
+              style: TextStyle(color: Colors.black),
+            ),
+            Text(
+              widget.DocUni,
+              style: TextStyle(color: Colors.black),
+            ),
+            Divider(
+              color: Colors.black,
+            ),
+          ]),
+    );
   }
 }

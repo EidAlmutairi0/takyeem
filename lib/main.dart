@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:takyeem/DoctorSiteInSearch.dart';
 import 'KSUcolleges_page.dart';
 import 'IMUcolleges_page.dart';
 import 'PNUcolleges_page.dart';
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         "IMU": (context) => IMUCollegesPage(),
         "PNU": (context) => PNUCollegesPage(),
         "DS": (context) => DoctorSite(),
+        "DSNS": (context) => DoctorSiteInSearch(),
         "CD": (context) => CollegeDoctors(),
         "KSAU": (context) => KSAUCollegesPage(),
       },
